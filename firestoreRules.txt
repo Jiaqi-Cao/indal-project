@@ -1,0 +1,23 @@
+service cloud.firestore {
+  match /databases/{database}/documents {
+  	//match /{document=**} {
+  	match /contacts/{contact} {
+    	allow read: if true;
+      allow write: if isDataValid();
+      								
+      
+    }
+    
+    function isDataValid()
+    {
+    	return 	request.resource.data.email.matches('.*@.*') &&
+      				request.resource.data.name.size() > 1 &&
+              request.resource.data.name.size() < 49 &&
+              request.resource.data.businessNumber.size()==9 &&
+              request.resource.data.PrimaryBusiness.matches('(Fisher,Distributor,Processor,Fish Monger)') &&
+              request.resource.data.Address.size() <50 &&
+              (request.resource.data.Province1.matches('(AB,BC,MB,NB,NL,NS,NT,NU,ON,PE,QC,SK,YT)')|| 
+              request.resource.data.Province1.size()==0)
+    }
+  }
+}
