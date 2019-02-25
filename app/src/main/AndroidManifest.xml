@@ -9,9 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
         <activity
             android:name=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
+=======
+        <activity android:name=".MainActivity">
+>>>>>>> notify
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,6 +23,7 @@
             </intent-filter>
         </activity>
 
+<<<<<<< HEAD
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_profile"
@@ -33,13 +38,18 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
+=======
+>>>>>>> notify
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> notify
     </application>
 
 </manifest>
