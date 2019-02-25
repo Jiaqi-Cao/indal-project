@@ -38,6 +38,7 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
+<<<<<<< HEAD
 =======
 >>>>>>> notify
         <service android:name=".MyFirebaseMessagingService">
@@ -50,6 +51,8 @@
 
 =======
 >>>>>>> notify
+=======
+>>>>>>> parent of 9ac303f... Upload config files in order to make other members run this application easier.
     </application>
 
 </manifest>

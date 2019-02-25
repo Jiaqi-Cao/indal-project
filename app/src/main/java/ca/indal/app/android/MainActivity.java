@@ -19,12 +19,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+<<<<<<< HEAD
 =======
 import android.widget.TextView;
 
 import com.google.firebase.FirebaseApp;
 >>>>>>> notify
 import com.google.firebase.messaging.FirebaseMessaging;
+=======
+>>>>>>> parent of 9ac303f... Upload config files in order to make other members run this application easier.
 
 public class MainActivity extends AppCompatActivity {
 
@@ -61,9 +64,6 @@ public class MainActivity extends AppCompatActivity {
                     // launch login activity
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                     finish();
-                }
-                else{
-                    FirebaseMessaging.getInstance().subscribeToTopic("global");
                 }
             }
         };
