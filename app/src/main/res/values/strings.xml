@@ -1,5 +1,4 @@
 <resources>
-<<<<<<< HEAD
     <string name="app_name">indal</string>
     <string name="action_sign_in_short">Register</string>
     <string name="email">Email</string>
@@ -31,7 +30,4 @@
     <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
     <string name="appbar_scrolling_view_behavior">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 
-=======
-    <string name="app_name">notify</string>
->>>>>>> notify
 </resources>
