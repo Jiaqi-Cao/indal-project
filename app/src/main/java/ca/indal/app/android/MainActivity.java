@@ -20,9 +20,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import ca.indal.app.android.add_drop_course.add_drop_course_MainActivity;
+import ca.indal.app.android.model.User;
+
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnChangeEmail, btnChangePassword, btnSendResetEmail, btnRemoveUser,
+    private Button btnChangeEmail, btnChangePassword, btnSendResetEmail, btnRemoveUser, btnAddDropCourse,
             changeEmail, changePassword, sendEmail, remove, signOut, courseTree;
 
     private EditText oldEmail, newEmail, password, newPassword;
@@ -65,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         btnChangePassword = (Button) findViewById(R.id.change_password_button);
         btnSendResetEmail = (Button) findViewById(R.id.sending_pass_reset_button);
         btnRemoveUser = (Button) findViewById(R.id.remove_user_button);
+        btnAddDropCourse = (Button) findViewById(R.id.add_drop_course);
         changeEmail = (Button) findViewById(R.id.changeEmail);
         changePassword = (Button) findViewById(R.id.changePass);
         sendEmail = (Button) findViewById(R.id.send);
@@ -220,6 +224,13 @@ public class MainActivity extends AppCompatActivity {
                     oldEmail.setError("Enter email");
                     progressBar.setVisibility(View.GONE);
                 }
+            }
+        });
+
+        btnAddDropCourse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, add_drop_course_MainActivity.class));
             }
         });
 

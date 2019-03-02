@@ -17,6 +17,10 @@ import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import ca.indal.app.android.model.User;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -24,6 +28,7 @@ public class SignupActivity extends AppCompatActivity {
     private Button btnSignIn, btnSignUp, btnResetPassword;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
+    private FirebaseFirestore database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,7 @@ public class SignupActivity extends AppCompatActivity {
 
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
+        database = FirebaseFirestore.getInstance();
 
         btnSignIn = (Button) findViewById(R.id.sign_in_button);
         btnSignUp = (Button) findViewById(R.id.sign_up_button);
@@ -117,6 +123,13 @@ public class SignupActivity extends AppCompatActivity {
                                                 }
                                             });
                                     startActivity(new Intent(SignupActivity.this, MainActivity.class));
+
+                                    String x = auth.getUid();
+                                    User user_instance = new User(email, auth.getUid(), "1");
+
+                                    DocumentReference ref = database.collection("User").document(x);
+                                    ref.set(user_instance);
+
                                     finish();
                                 }
                             }

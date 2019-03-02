@@ -38,6 +38,23 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
+        <activity
+            android:name=".add_drop_course.add_drop_course_MainActivity"
+            android:parentActivityName=".add_drop_course.add_drop_course_MainActivity" />
+
+        <activity
+            android:name=".add_drop_course.CourseDetail"
+            android:parentActivityName=".add_drop_course.CourseDetail" />
+
+        <activity
+            android:name=".add_drop_course.DropMain"
+            android:parentActivityName=".add_drop_course.DropMain" />
+
+        <activity
+            android:name=".add_drop_course.DropDetail"
+            android:parentActivityName=".add_drop_course.DropDetail" />
+
+
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
