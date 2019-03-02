@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
+    <TextView
         android:id="@+id/CourseName"
         android:layout_width="368dp"
         android:layout_height="46dp"
@@ -13,8 +13,6 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Course Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -35,7 +33,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <TextView
         android:id="@+id/CourseID"
         android:layout_width="367dp"
         android:layout_height="45dp"
@@ -44,8 +42,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Course ID"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -71,7 +67,7 @@
 
     </LinearLayout>
 
-    <EditText
+    <TextView
         android:id="@+id/CourseTime"
         android:layout_width="368dp"
         android:layout_height="42dp"
@@ -89,7 +85,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.284" />
 
-    <EditText
+    <TextView
         android:id="@+id/CourseProfessor"
         android:layout_width="368dp"
         android:layout_height="42dp"
@@ -98,8 +94,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Course Professor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -107,7 +101,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.397" />
 
-    <EditText
+    <TextView
         android:id="@+id/CourseFailRate"
         android:layout_width="368dp"
         android:layout_height="46dp"
@@ -116,8 +110,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Course Fail Rate"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -125,7 +117,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.515" />
 
-    <EditText
+    <TextView
         android:id="@+id/CourseAvailable"
         android:layout_width="368dp"
         android:layout_height="46dp"
@@ -134,8 +126,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Course Available"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
