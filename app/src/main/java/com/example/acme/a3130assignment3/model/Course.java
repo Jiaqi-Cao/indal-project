@@ -2,10 +2,6 @@ package com.example.acme.a3130assignment3.model;
 
 import java.io.Serializable;
 
-/*
-Simple POJO class to hold Contact information
-in Realtime database or Firestore database
- */
 public class Course implements Serializable {
 
     public String CourseName;
