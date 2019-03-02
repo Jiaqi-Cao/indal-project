@@ -19,6 +19,7 @@ public class DropDetail extends AppCompatActivity {
     private TextView CourseFailRate;
     private TextView CourseAvailable;
     private Button Drop;
+    private String x;
 
     private FirebaseFirestore database;
     private Intent intent;
@@ -54,7 +55,7 @@ public class DropDetail extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                DocumentReference ref = database.collection("User/jqNFtHORDKHlQGQP6wZY/course").document(course.CourseID);
+                DocumentReference ref = database.collection("User/"+x+"/course").document(course.CourseID);
                 ref.delete();
                 finish();
             }

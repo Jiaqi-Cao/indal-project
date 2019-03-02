@@ -19,6 +19,7 @@ public class CourseDetail extends AppCompatActivity {
     private TextView CourseFailRate;
     private TextView CourseAvailable;
     private Button Add;
+    private String x;
 
     private FirebaseFirestore database;
     private Intent intent;
@@ -28,6 +29,7 @@ public class CourseDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.course_detail);
+        
 
         CourseName = findViewById(R.id.CourseName);
         CourseID = findViewById(R.id.CourseID);
@@ -54,7 +56,7 @@ public class CourseDetail extends AppCompatActivity {
             public void onClick(View v) {
 
                 Course c = new Course(CourseName.getText().toString(),CourseID.getText().toString(),CourseTime.getText().toString(),CourseProfessor.getText().toString(),CourseFailRate.getText().toString(),CourseAvailable.getText().toString());
-                DocumentReference ref = database.collection("User/jqNFtHORDKHlQGQP6wZY/course").document(course.CourseID);
+                DocumentReference ref = database.collection("User/"+x+"/course").document(course.CourseID);
                 c.CourseID = ref.getId();
                 ref.set(c);
                 finish();
