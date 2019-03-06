@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import ca.indal.app.android.R;
-import ca.indal.app.android.add_drop_course.model.Course;
+import ca.indal.app.android.model.Course;
 import ca.indal.app.android.add_drop_course.viewholder.ContactViewHolder2;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;

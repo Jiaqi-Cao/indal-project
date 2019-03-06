@@ -12,11 +12,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import ca.indal.app.android.R;
-import ca.indal.app.android.add_drop_course.model.Course;
+import ca.indal.app.android.model.Course;
 import ca.indal.app.android.add_drop_course.viewholder.ContactViewHolder;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import android.widget.TextView;

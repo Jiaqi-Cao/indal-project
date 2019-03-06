@@ -10,8 +10,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 
 import ca.indal.app.android.R;
-import ca.indal.app.android.add_drop_course.model.Course;
-import ca.indal.app.android.model.User;
+import ca.indal.app.android.model.Course;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import android.view.View;

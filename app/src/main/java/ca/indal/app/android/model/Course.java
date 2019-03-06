@@ -1,4 +1,4 @@
-package ca.indal.app.android.add_drop_course.model;
+package ca.indal.app.android.model;
 
 import java.io.Serializable;
 
