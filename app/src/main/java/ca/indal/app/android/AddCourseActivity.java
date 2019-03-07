@@ -3,6 +3,7 @@ package ca.indal.app.android;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,7 +15,9 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -29,6 +32,8 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Map;
 
+import ca.indal.app.android.model.Course;
+
 
 public class AddCourseActivity extends AppCompatActivity {
 
@@ -41,6 +46,10 @@ public class AddCourseActivity extends AppCompatActivity {
     private ArrayList<String> IDs = new ArrayList<String>();
     private ArrayList<String> terms = new ArrayList<String>();
     private AlertDialog alertDialog;
+    private FirebaseAuth auth;
+    private FirebaseFirestore database;
+    private Course course;
+    int choose_term_index = 0;
 
 
     @Override
@@ -161,6 +170,11 @@ public class AddCourseActivity extends AppCompatActivity {
     }
 
     public void termSelection() {
+        auth = FirebaseAuth.getInstance();
+        final String authUid = auth.getUid();
+        database = FirebaseFirestore.getInstance();
+        //int choose = -1;
+        //course = (Course) intent.getSerializableExtra("Course");
 
         //final String items[] = {"我是Item一", "我是Item二", "我是Item三", "我是Item四"};
         final String items[] = (String[])terms.toArray(new String[terms.size()]);;
@@ -170,7 +184,10 @@ public class AddCourseActivity extends AppCompatActivity {
                 .setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(AddCourseActivity.this, items[which], Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(AddCourseActivity.this, items[which], Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(AddCourseActivity.this, items[which], Toast.LENGTH_SHORT).show();
+                        choose_term_index = which;
+                        Toast.makeText(AddCourseActivity.this, which+"", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setNegativeButton("Close", new DialogInterface.OnClickListener() {
@@ -179,9 +196,16 @@ public class AddCourseActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 })
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Add Course", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        //Course c = new Course();
+                        if(!value.equals("")){
+                            Course c = new Course(value,IDs.get(choose_term_index));
+                            DocumentReference ref = database.collection("User/"+authUid+"/"+IDs.get(choose_term_index)).document(value);
+                            ref.set(c);
+                            Toast.makeText(AddCourseActivity.this, "Successful", Toast.LENGTH_SHORT).show();
+                        }
                         dialog.dismiss();
                     }
                 }).create();

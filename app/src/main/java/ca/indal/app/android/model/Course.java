@@ -4,32 +4,28 @@ import java.io.Serializable;
 
 public class Course implements Serializable {
 
-    public String CourseName;
+    //public String CourseName;
     public String CourseID;
-    public String CourseTime;
-    public String CourseProfessor;
-    public String CourseFailRate;
-    public String CourseAvailable;
+    //public String CourseTime;
+    public String term;
 
     public  Course()
     {
 
     }
 
-    public Course(String CourseName, String CourseID,String CourseTime,String CourseProfessor,String CourseFailRate,String CourseAvailable)
+    public Course(String CourseID, String term)
     {
-        this.CourseName = CourseName;
+        //this.CourseName = CourseName;
         this.CourseID = CourseID;
-        this.CourseTime=CourseTime;
-        this.CourseProfessor=CourseProfessor;
-        this.CourseFailRate=CourseFailRate;
-        this.CourseAvailable=CourseAvailable;
+        //this.CourseTime=CourseTime;
+        this.term=term;
     }
 
 
     @Override
     public String toString()
     {
-        return "CourseName: " + CourseName + " CourseID: " + CourseID+ " CourseTime: " + CourseTime+ " CourseProfessor: " + CourseProfessor+ " CourseFailRate: " + CourseFailRate+ " CourseAvailable: " + CourseAvailable;
+        return  " CourseID: " + CourseID+  " Course Term: " + term;
     }
 }

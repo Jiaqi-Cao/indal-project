@@ -21,7 +21,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-import ca.indal.app.android.add_drop_course.add_drop_course_MainActivity;
 import ca.indal.app.android.model.User;
 
 public class MainActivity extends AppCompatActivity {
