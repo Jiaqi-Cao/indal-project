@@ -18,14 +18,6 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/indal/app/android/AddCourseActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/indal/app/android/AddCourseActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/indal/app/android/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/indal/app/android/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/indal/app/android/add_drop_course/CourseDetail.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/indal/app/android/add_drop_course/DropDetail.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/indal/app/android/add_drop_course/DropMain.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/indal/app/android/add_drop_course/add_drop_course_MainActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/indal/app/android/add_drop_course/viewholder/ContactViewHolder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/indal/app/android/add_drop_course/viewholder/ContactViewHolder2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/indal/app/android/model/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/indal/app/android/model/Course.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/build/classes/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -45,7 +37,7 @@
     <session id="-945988813">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="8" />
+          <entry key="project.closed" value="9" />
           <entry key="project.open.time.0" value="2" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.2" value="1" />
@@ -76,7 +68,7 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="gradle" value="11" />
-          <entry key="java" value="1213" />
+          <entry key="java" value="1220" />
           <entry key="txt" value="22" />
           <entry key="xml" value="191" />
         </counts>
@@ -84,7 +76,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Groovy" value="11" />
-          <entry key="JAVA" value="1213" />
+          <entry key="JAVA" value="1220" />
           <entry key="PLAIN_TEXT" value="22" />
           <entry key="XML" value="191" />
         </counts>
@@ -117,15 +109,15 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/indal/app/android/AddCourseActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="412">
-              <caret line="209" column="21" lean-forward="true" selection-start-line="209" selection-start-column="21" selection-end-line="209" selection-end-column="21" />
+            <state relative-caret-position="337">
+              <caret line="184" column="29" lean-forward="true" selection-start-line="184" selection-start-column="29" selection-end-line="184" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#5779#6070#0" expanded="true" />
                 <element signature="e#6069#6070#0" expanded="true" />
                 <element signature="e#6116#6344#0" expanded="true" />
                 <element signature="e#6343#6344#0" expanded="true" />
                 <element signature="e#7194#7825#0" expanded="true" />
+                <element signature="e#7824#7825#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -193,8 +185,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="170" />
-    <option name="y" value="23" />
+    <option name="x" value="1" />
+    <option name="y" value="201" />
     <option name="width" value="1680" />
     <option name="height" value="1027" />
   </component>
@@ -242,7 +234,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="device.picker.selection" value="Pixel_2_XL_API_28" />
+    <property name="device.picker.selection" value="ead390ee" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RunDashboard">
@@ -341,8 +333,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="170" y="23" width="1680" height="1027" extended-state="0" />
-    <editor active="true" />
+    <frame x="1" y="201" width="1680" height="1027" extended-state="0" />
     <layout>
       <window_info id="Captures" order="0" sideWeight="0.50734097" side_tool="true" weight="0.2814408" />
       <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49265906" visible="true" weight="0.2814408" />
@@ -353,7 +344,7 @@
       <window_info id="Capture Tool" order="6" />
       <window_info id="Favorites" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Find" />
-      <window_info active="true" anchor="bottom" id="Run" order="0" visible="true" weight="0.32894737" />
+      <window_info anchor="bottom" id="Run" order="0" weight="0.32894737" />
       <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.4993895" weight="0.32785088" />
       <window_info anchor="bottom" id="TODO" order="2" weight="0.32894737" />
       <window_info anchor="bottom" id="Android Profiler" order="3" weight="0.32894737" />
@@ -605,15 +596,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/indal/app/android/AddCourseActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="209" column="21" lean-forward="true" selection-start-line="209" selection-start-column="21" selection-end-line="209" selection-end-column="21" />
+        <state relative-caret-position="337">
+          <caret line="184" column="29" lean-forward="true" selection-start-line="184" selection-start-column="29" selection-end-line="184" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#5779#6070#0" expanded="true" />
             <element signature="e#6069#6070#0" expanded="true" />
             <element signature="e#6116#6344#0" expanded="true" />
             <element signature="e#6343#6344#0" expanded="true" />
             <element signature="e#7194#7825#0" expanded="true" />
+            <element signature="e#7824#7825#0" expanded="true" />
           </folding>
         </state>
       </provider>

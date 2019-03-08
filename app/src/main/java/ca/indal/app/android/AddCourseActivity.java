@@ -187,7 +187,7 @@ public class AddCourseActivity extends AppCompatActivity {
                         //Toast.makeText(AddCourseActivity.this, items[which], Toast.LENGTH_SHORT).show();
                         //Toast.makeText(AddCourseActivity.this, items[which], Toast.LENGTH_SHORT).show();
                         choose_term_index = which;
-                        Toast.makeText(AddCourseActivity.this, which+"", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddCourseActivity.this, items[which], Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setNegativeButton("Close", new DialogInterface.OnClickListener() {
