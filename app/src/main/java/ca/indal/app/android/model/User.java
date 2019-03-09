@@ -19,7 +19,24 @@ public class User implements Serializable {
         this.UID = UID;
         this.role=role;
     }
-
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public void setUID(String UID) {
+        this.UID = UID;
+    }
+    public void setRole(String role) {
+        this.role = role;
+    }
+    public String getEmail(){
+        return email;
+    }
+    public String getUID(){
+        return UID;
+    }
+    public String getRole(){
+        return role;
+    }
 
     @Override
     public String toString()
