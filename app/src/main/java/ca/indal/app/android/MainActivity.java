@@ -1,5 +1,6 @@
 package ca.indal.app.android;
 
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -20,13 +21,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-import ca.indal.app.android.add_drop_course.add_drop_course_MainActivity;
 import ca.indal.app.android.model.User;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button btnChangeEmail, btnChangePassword, btnSendResetEmail, btnRemoveUser, btnAddDropCourse,
-            changeEmail, changePassword, sendEmail, remove, signOut, courseTree;
+            changeEmail, changePassword, sendEmail, news,remove, signOut, courseTree;
 
     private EditText oldEmail, newEmail, password, newPassword;
     private ProgressBar progressBar;
@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         changeEmail = (Button) findViewById(R.id.changeEmail);
         changePassword = (Button) findViewById(R.id.changePass);
         sendEmail = (Button) findViewById(R.id.send);
+        news = (Button) findViewById(R.id.news_button);
         remove = (Button) findViewById(R.id.remove);
         signOut = (Button) findViewById(R.id.sign_out);
         courseTree = (Button) findViewById(R.id.courseTree);
@@ -88,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
         changeEmail.setVisibility(View.GONE);
         changePassword.setVisibility(View.GONE);
         sendEmail.setVisibility(View.GONE);
+        //news.setVisibility(View.GONE);
         remove.setVisibility(View.GONE);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -113,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 changeEmail.setVisibility(View.VISIBLE);
                 changePassword.setVisibility(View.GONE);
                 sendEmail.setVisibility(View.GONE);
+                news.setVisibility(View.GONE);
                 remove.setVisibility(View.GONE);
             }
         });
@@ -153,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
                 changeEmail.setVisibility(View.GONE);
                 changePassword.setVisibility(View.VISIBLE);
                 sendEmail.setVisibility(View.GONE);
+                news.setVisibility(View.GONE);
                 remove.setVisibility(View.GONE);
             }
         });
@@ -198,6 +202,7 @@ public class MainActivity extends AppCompatActivity {
                 changeEmail.setVisibility(View.GONE);
                 changePassword.setVisibility(View.GONE);
                 sendEmail.setVisibility(View.VISIBLE);
+                news.setVisibility(View.GONE);
                 remove.setVisibility(View.GONE);
             }
         });
@@ -227,10 +232,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
         btnAddDropCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, add_drop_course_MainActivity.class));
+                startActivity(new Intent(MainActivity.this, AddCourseActivity.class));
+            }
+        });
+
+        news.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, News.class));
             }
         });
 
