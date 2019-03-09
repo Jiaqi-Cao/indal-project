@@ -22,7 +22,6 @@ public class UserInformation extends AppCompatActivity {
     private FirebaseAuth auth;
 
     private Intent intent;
-    private User curr_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -2,13 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ca.indal.app.android">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -53,6 +56,14 @@
         <activity
             android:name=".add_drop_course.DropDetail"
             android:parentActivityName=".add_drop_course.DropDetail" />
+
+        <activity
+            android:name=".AddCourseActivity"
+            android:parentActivityName=".AddCourseActivity" />
+
+        <activity
+            android:name=".UserInformation"
+            android:parentActivityName=".UserInformation" />
 
 
         <service android:name=".MyFirebaseMessagingService">
