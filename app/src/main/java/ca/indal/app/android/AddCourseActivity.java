@@ -1,9 +1,12 @@
+/*
+* @author Jinkun Chen
+* @version 1
+* */
 package ca.indal.app.android;
 
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,8 +22,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,7 +31,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Map;
 
 import ca.indal.app.android.model.Course;
 
@@ -41,7 +41,7 @@ public class AddCourseActivity extends AppCompatActivity {
     private long exitTime = 0;
     private String currentURL = "";
     private String cat = "";
-    private String value = "";
+    private String CourseID = "";
     FloatingActionButton fab;
     private ArrayList<String> IDs = new ArrayList<String>();
     private ArrayList<String> terms = new ArrayList<String>();
@@ -51,6 +51,10 @@ public class AddCourseActivity extends AppCompatActivity {
     private Course course;
     int choose_term_index = 0;
 
+    /*
+     * This method build the interface of Add Course Activity
+     * @return Nothing
+     * */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,13 +95,14 @@ public class AddCourseActivity extends AppCompatActivity {
                 super.onPageFinished(view, url);
                 currentURL = webView.getUrl();
                 cat = "";
-                value = "";
+                CourseID = "";
                 if (currentURL.split("\\/").length > 5) {
                     cat = currentURL.split("\\/")[3];
-                    value = currentURL.split("\\/")[5];
+                    CourseID = currentURL.split("\\/")[5];
                 }
 
                 if (cat.equals("course")) {
+                    readCourseInfoCSV(terms.get(choose_term_index));
                     /*AlertDialog.Builder builder = new AlertDialog.Builder(AddCourseActivity.this);
                     builder.setTitle("确认");
                     builder.setMessage("Cat: " + cat + "\nValue: " + value);
@@ -116,9 +121,10 @@ public class AddCourseActivity extends AppCompatActivity {
     }
 
 
-    //我们需要重写回退按钮的时间,当用户点击回退按钮：
-    //1.webView.canGoBack()判断网页是否能后退,可以则goback()
-    //2.如果不可以连续点击两次退出App,否则弹出提示Toast
+    /*
+    * This method build the go back button for Add and Drop Activity
+    * @return Nothong.
+    * */
     @Override
     public void onBackPressed() {
         if (webView.canGoBack()) {
@@ -135,7 +141,12 @@ public class AddCourseActivity extends AppCompatActivity {
         }
     }
 
-
+    /*
+    * This method is used to read the CSV file from the server in order to get the available term
+    * @return Nothing.
+    * @exception IOException On input error.
+    * @see IOException
+    * */
     public void readCSV() {
         new AsyncTask<String, Void, Void>() {
             @Override
@@ -169,6 +180,10 @@ public class AddCourseActivity extends AppCompatActivity {
 
     }
 
+    /*
+     * This method is used to create an dialog for user to choose term before course selection
+     * @return Nothing.
+     * */
     public void termSelection() {
         auth = FirebaseAuth.getInstance();
         final String authUid = auth.getUid();
@@ -176,11 +191,9 @@ public class AddCourseActivity extends AppCompatActivity {
         //int choose = -1;
         //course = (Course) intent.getSerializableExtra("Course");
 
-        //final String items[] = {"我是Item一", "我是Item二", "我是Item三", "我是Item四"};
         final String items[] = (String[])terms.toArray(new String[terms.size()]);;
         AlertDialog dialog = new AlertDialog.Builder(this)
-                //.setIcon(R.mipmap.icon)//设置标题的图片
-                .setTitle("Term Selection")//设置对话框的标题
+                .setTitle("Term Selection")
                 .setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -200,15 +213,53 @@ public class AddCourseActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //Course c = new Course();
-                        if(!value.equals("")){
-                            Course c = new Course(value,IDs.get(choose_term_index));
-                            DocumentReference ref = database.collection("User/"+authUid+"/"+IDs.get(choose_term_index)).document(value);
-                            ref.set(c);
+                        if(!CourseID.equals("")){
+                            //Course c = new Course(value,IDs.get(choose_term_index));
+                            //readCourseInfoCSV(terms.get(choose_term_index));
+                            DocumentReference ref = database.collection("User/"+authUid+"/"+IDs.get(choose_term_index)).document(CourseID);
+                            ref.set(course);
                             Toast.makeText(AddCourseActivity.this, "Successful", Toast.LENGTH_SHORT).show();
                         }
                         dialog.dismiss();
                     }
                 }).create();
         dialog.show();
+    }
+
+    /*
+     * This method is used to read the CSV file from the server in order to get the course information
+     * @return Nothing.
+     * @exception IOException On input error.
+     * @see IOException
+     * */
+    public void readCourseInfoCSV(String term) {
+        new AsyncTask<String, Void, Void>() {
+            @Override
+            protected Void doInBackground(String... strings) {
+                try {
+                    URL url = new URL(strings[0]);
+                    URLConnection connection = url.openConnection();//获取互联网连接
+                    InputStream is = connection.getInputStream();//获取输入流
+                    InputStreamReader isr = new InputStreamReader(is, "utf-8");//字节转字符，字符集是utf-8
+                    BufferedReader bufferedReader = new BufferedReader(isr);//通过BufferedReader可以读取一行字符串
+                    String line;
+                    bufferedReader.readLine();
+                    while ((line = bufferedReader.readLine()) != null) {
+                        Log.i("Output：", "" + line);
+                        String item[] = line.split(",");
+                        course = new Course(CourseID, IDs.get(choose_term_index), item[6], item[2], item[3], item[7]);
+                    }
+                    bufferedReader.close();
+                    isr.close();
+                    is.close();
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        }.execute("http://app.indal.ca/wp-content/tables/"+CourseID+".csv");
     }
 }
