@@ -22,6 +22,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,8 +33,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 
 import ca.indal.app.android.model.Course;
+import ca.indal.app.android.model.CourseSpot;
+import ca.indal.app.android.model.User_CourseSpot;
 
 
 public class AddCourseActivity extends AppCompatActivity {
@@ -49,7 +55,11 @@ public class AddCourseActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseFirestore database;
     private Course course;
+    private CourseSpot courseSpot;
     int choose_term_index = 0;
+
+    private String wholeJsonData = "";
+    private ArrayList<String> emailhahaha = new ArrayList<String>();
 
     /*
      * This method build the interface of Add Course Activity
@@ -103,12 +113,8 @@ public class AddCourseActivity extends AppCompatActivity {
 
                 if (cat.equals("course")) {
                     readCourseInfoCSV(terms.get(choose_term_index));
-                    /*AlertDialog.Builder builder = new AlertDialog.Builder(AddCourseActivity.this);
-                    builder.setTitle("确认");
-                    builder.setMessage("Cat: " + cat + "\nValue: " + value);
-                    builder.setPositiveButton("是", null);
-                    builder.show();*/
                     fab.show();
+
                 } else {
                     fab.hide();
                 }
@@ -118,6 +124,7 @@ public class AddCourseActivity extends AppCompatActivity {
         });
         webView.getSettings().setJavaScriptEnabled(true);  //设置WebView属性,运行执行js脚本
         webView.loadUrl("http://app.indal.ca");          //调用loadUrl方法为WebView加入链接
+
     }
 
 
@@ -217,7 +224,12 @@ public class AddCourseActivity extends AppCompatActivity {
                             //Course c = new Course(value,IDs.get(choose_term_index));
                             //readCourseInfoCSV(terms.get(choose_term_index));
                             DocumentReference ref = database.collection("User/"+authUid+"/"+IDs.get(choose_term_index)).document(CourseID);
+                            DocumentReference ref2 = database.collection("CourseSpot/").document(CourseID);
                             ref.set(course);
+                            ref2.set(courseSpot);
+                            DocumentReference ref3 = database.collection("CourseSpot/"+CourseID+"/"+IDs.get(choose_term_index)).document(authUid);
+                            ref3.set(new User_CourseSpot(auth.getUid()));
+
                             Toast.makeText(AddCourseActivity.this, "Successful", Toast.LENGTH_SHORT).show();
                         }
                         dialog.dismiss();
@@ -247,7 +259,9 @@ public class AddCourseActivity extends AppCompatActivity {
                     while ((line = bufferedReader.readLine()) != null) {
                         Log.i("Output：", "" + line);
                         String item[] = line.split(",");
-                        course = new Course(CourseID, IDs.get(choose_term_index), item[6], item[2], item[3], item[7]);
+                        course = new Course(CourseID, IDs.get(choose_term_index), item[2], item[3], item[7]);
+                        courseSpot = new CourseSpot(CourseID);
+
                     }
                     bufferedReader.close();
                     isr.close();
@@ -262,4 +276,25 @@ public class AddCourseActivity extends AppCompatActivity {
             }
         }.execute("http://app.indal.ca/wp-content/tables/"+CourseID+".csv");
     }
+
+    /*public void jsonFilter(String jsonData){
+        try {
+            JSONObject jsonObject = new JSONObject(jsonData);
+            Iterator keys = jsonObject.keys();
+            Log.i("<--- Json -->", jsonObject.getString("createTime"));
+            //通过迭代器获得json当中所有的key值
+            //然后通过循环遍历出的key值
+            while (keys.hasNext()){
+                String key = String.valueOf(keys.next());
+                //Log.i("!!!!!!->json：", "" + key);
+                //通过通过刚刚得到的key值去解析后面的json了
+            }
+        }
+        catch (JSONException e) {
+            //Log.i("json：", "???" );
+            e.printStackTrace();
+        }
+        //return
+    }*/
+
 }

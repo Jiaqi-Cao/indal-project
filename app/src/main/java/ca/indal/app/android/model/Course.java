@@ -8,7 +8,6 @@ public class Course implements Serializable {
     public String CourseID;
     //public String CourseTime;
     public String term;
-    public String max;
     public String time;
     public String days;
     public String credit;
@@ -19,13 +18,12 @@ public class Course implements Serializable {
 
     }
 
-    public Course(String CourseID, String term, String max , String time, String days, String credit)
+    public Course(String CourseID, String term, String time, String days, String credit)
     {
         //this.CourseName = CourseName;
         this.CourseID = CourseID;
         //this.CourseTime=CourseTime;
         this.term=term;
-        this.max = max;
         this.time = time;
         this.days = days;
         this.credit = credit;
@@ -36,6 +34,6 @@ public class Course implements Serializable {
     @Override
     public String toString()
     {
-        return  " CourseID: " + CourseID+  " Course Term: " + term + " Max Spots:  "+ max + " startTime: "+time+ " days: "+days+" credit: " + credit;
+        return  " CourseID: " + CourseID+  " Course Term: " + term  + " startTime: "+time+ " days: "+days+" credit: " + credit;
     }
 }
