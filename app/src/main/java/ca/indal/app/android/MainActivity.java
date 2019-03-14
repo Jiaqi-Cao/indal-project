@@ -1,5 +1,6 @@
 package ca.indal.app.android;
 
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -20,7 +21,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-import ca.indal.app.android.add_drop_course.add_drop_course_MainActivity;
 import ca.indal.app.android.model.User;
 
 public class MainActivity extends AppCompatActivity {
@@ -230,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
         btnAddDropCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, add_drop_course_MainActivity.class));
+                startActivity(new Intent(MainActivity.this, AddCourseActivity.class));
             }
         });
 
