@@ -1,6 +1,9 @@
 /*
 * @author Jinkun Chen
 * @version 1
+* @author Xuemin Yu
+* @version 2
+* @time: 3.15
 * */
 package ca.indal.app.android;
 
@@ -130,7 +133,7 @@ public class AddCourseActivity extends AppCompatActivity {
 
     /*
     * This method build the go back button for Add and Drop Activity
-    * @return Nothong.
+    * @return Nothing.
     * */
     @Override
     public void onBackPressed() {
@@ -191,12 +194,16 @@ public class AddCourseActivity extends AppCompatActivity {
      * This method is used to create an dialog for user to choose term before course selection
      * @return Nothing.
      * */
+
+    /*
+     * Read all code and delete the unnecessary code and commend
+     * Refract the notify (Toast part) to show the term name
+     */
     public void termSelection() {
         auth = FirebaseAuth.getInstance();
         final String authUid = auth.getUid();
         database = FirebaseFirestore.getInstance();
-        //int choose = -1;
-        //course = (Course) intent.getSerializableExtra("Course");
+
 
         final String items[] = (String[])terms.toArray(new String[terms.size()]);;
         AlertDialog dialog = new AlertDialog.Builder(this)
@@ -204,8 +211,6 @@ public class AddCourseActivity extends AppCompatActivity {
                 .setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //Toast.makeText(AddCourseActivity.this, items[which], Toast.LENGTH_SHORT).show();
-                        //Toast.makeText(AddCourseActivity.this, items[which], Toast.LENGTH_SHORT).show();
                         choose_term_index = which;
                         Toast.makeText(AddCourseActivity.this, items[which], Toast.LENGTH_SHORT).show();
                     }
@@ -219,10 +224,7 @@ public class AddCourseActivity extends AppCompatActivity {
                 .setPositiveButton("Add Course", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //Course c = new Course();
                         if(!CourseID.equals("")){
-                            //Course c = new Course(value,IDs.get(choose_term_index));
-                            //readCourseInfoCSV(terms.get(choose_term_index));
                             DocumentReference ref = database.collection("User/"+authUid+"/"+IDs.get(choose_term_index)).document(CourseID);
                             DocumentReference ref2 = database.collection("CourseSpot/").document(CourseID);
                             ref.set(course);
@@ -259,8 +261,9 @@ public class AddCourseActivity extends AppCompatActivity {
                     while ((line = bufferedReader.readLine()) != null) {
                         Log.i("Output：", "" + line);
                         String item[] = line.split(",");
-                        course = new Course(CourseID, IDs.get(choose_term_index), item[2], item[3], item[7]);
+                        course = new Course(CourseID, IDs.get(choose_term_index), item[2], item[3], item[7], item[5]);
                         courseSpot = new CourseSpot(CourseID);
+                        System.out.print(item[5]);
 
                     }
                     bufferedReader.close();
@@ -276,25 +279,4 @@ public class AddCourseActivity extends AppCompatActivity {
             }
         }.execute("http://app.indal.ca/wp-content/tables/"+CourseID+".csv");
     }
-
-    /*public void jsonFilter(String jsonData){
-        try {
-            JSONObject jsonObject = new JSONObject(jsonData);
-            Iterator keys = jsonObject.keys();
-            Log.i("<--- Json -->", jsonObject.getString("createTime"));
-            //通过迭代器获得json当中所有的key值
-            //然后通过循环遍历出的key值
-            while (keys.hasNext()){
-                String key = String.valueOf(keys.next());
-                //Log.i("!!!!!!->json：", "" + key);
-                //通过通过刚刚得到的key值去解析后面的json了
-            }
-        }
-        catch (JSONException e) {
-            //Log.i("json：", "???" );
-            e.printStackTrace();
-        }
-        //return
-    }*/
-
 }

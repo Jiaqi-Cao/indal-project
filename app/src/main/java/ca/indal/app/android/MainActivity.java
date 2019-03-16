@@ -26,7 +26,7 @@ import ca.indal.app.android.model.User;
 public class MainActivity extends AppCompatActivity {
 
     private Button btnChangeEmail, btnChangePassword, btnSendResetEmail, btnRemoveUser, btnAddDropCourse,
-            changeEmail, changePassword, sendEmail, remove, signOut, courseTree;
+            changeEmail, changePassword, sendEmail, remove, signOut, courseTree, importantDate;
 
     private EditText oldEmail, newEmail, password, newPassword;
     private ProgressBar progressBar;
@@ -75,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
         remove = (Button) findViewById(R.id.remove);
         signOut = (Button) findViewById(R.id.sign_out);
         courseTree = (Button) findViewById(R.id.courseTree);
+
+        importantDate = (Button) findViewById(R.id.important_button);
 
         oldEmail = (EditText) findViewById(R.id.old_email);
         newEmail = (EditText) findViewById(R.id.new_email);
@@ -255,6 +257,15 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                 }
+            }
+        });
+
+        importantDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(MainActivity.this, ImportantDatesActivity.class));
+
             }
         });
 
