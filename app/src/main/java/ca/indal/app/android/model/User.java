@@ -2,6 +2,12 @@ package ca.indal.app.android.model;
 
 import java.io.Serializable;
 
+/*
+ * @author Yang Shu, Jessie Wang
+ * @version 0.10
+ * User object for received the information for current user who login in the application
+ */
+
 public class User implements Serializable {
 
     public String email;

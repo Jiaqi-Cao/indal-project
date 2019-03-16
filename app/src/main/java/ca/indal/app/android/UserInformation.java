@@ -11,6 +11,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+/*
+ * @author Yang Shu, Jessie Wang
+ * Display the current login user information from the fire base
+ */
+
 public class UserInformation extends AppCompatActivity {
 
     private TextView name;

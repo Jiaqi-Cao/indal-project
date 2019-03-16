@@ -259,6 +259,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /*
+         * @author Yang Shu, Jessie Wang
+         *Activity set up for display user information
+         */
+        //user information display
         userInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
