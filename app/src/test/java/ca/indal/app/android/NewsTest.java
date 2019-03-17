@@ -11,14 +11,22 @@ import java.net.URL;
 
 import static org.junit.Assert.*;
 
-
+/*
+ * @ author Jessie Wang
+ * @ version 1
+ * @ author Yang Shu
+ * @ version
+ * @ time 3.8
+ * */
 public class NewsTest{
 
 
     private static String urltest = "http://news.app.indal.ca/";
 
 
-
+/* this method tests the news
+ * @ return nothing
+ * */
 
     @Test
     public void urltest() throws IOException{

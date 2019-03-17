@@ -1,7 +1,13 @@
 package ca.indal.app.android;
 
 
-
+/*
+ * @ author Jessie Wang
+ * @ version 1
+ * @ author Yang Shu
+ * @ version
+ * @ time 3.13
+ * */
 import org.junit.Test;
 
 
@@ -19,7 +25,9 @@ public class FeedbackTest{
 
 
 
-
+    /* this method tests the feedback
+     * @ return nothing
+     * */
     @Test
     public void urltest() throws IOException{
         URL url = new URL(urltest);
