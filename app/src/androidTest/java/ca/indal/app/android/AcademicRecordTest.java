@@ -8,13 +8,13 @@
  * */
 package ca.indal.app.android;
 
-        import org.junit.Test;
+import org.junit.Test;
 
-        import java.io.IOException;
-        import java.net.HttpURLConnection;
-        import java.net.URL;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
-        import static org.junit.Assert.*;
+import static org.junit.Assert.*;
 public class AcademicRecordTest {
     @Test
     public void validConnection() throws IOException {

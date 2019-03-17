@@ -61,6 +61,8 @@ public class AddCourseActivity extends AppCompatActivity {
     FloatingActionButton fab;
     private ArrayList<String> IDs = new ArrayList<String>();
     private ArrayList<String> terms = new ArrayList<String>();
+    //private ArrayList<String> maxNum = new ArrayList<>();
+    //private ArrayList<String> currentNum = new ArrayList<>();
     private AlertDialog alertDialog;
     private FirebaseAuth auth;
     private FirebaseFirestore database;
@@ -104,7 +106,6 @@ public class AddCourseActivity extends AppCompatActivity {
 
         webView = findViewById(R.id.webview1);
         webView.setWebViewClient(new WebViewClient() {
-            //设置在webView点击打开的新网页在当前界面显示,而不跳转到新的浏览器中
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
@@ -133,8 +134,8 @@ public class AddCourseActivity extends AppCompatActivity {
             }
 
         });
-        webView.getSettings().setJavaScriptEnabled(true);  //设置WebView属性,运行执行js脚本
-        webView.loadUrl("http://app.indal.ca");          //调用loadUrl方法为WebView加入链接
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("http://app.indal.ca");
 
     }
 
@@ -149,7 +150,7 @@ public class AddCourseActivity extends AppCompatActivity {
             webView.goBack();
         } else {
             if ((System.currentTimeMillis() - exitTime) > 2000) {
-                Toast.makeText(getApplicationContext(), "再按一次退出程序",
+                Toast.makeText(getApplicationContext(), "Try again to exit",
                         Toast.LENGTH_SHORT).show();
                 exitTime = System.currentTimeMillis();
             } else {
@@ -171,10 +172,10 @@ public class AddCourseActivity extends AppCompatActivity {
             protected Void doInBackground(String... strings) {
                 try {
                     URL url = new URL(strings[0]);
-                    URLConnection connection = url.openConnection();//获取互联网连接
-                    InputStream is = connection.getInputStream();//获取输入流
-                    InputStreamReader isr = new InputStreamReader(is, "utf-8");//字节转字符，字符集是utf-8
-                    BufferedReader bufferedReader = new BufferedReader(isr);//通过BufferedReader可以读取一行字符串
+                    URLConnection connection = url.openConnection();
+                    InputStream is = connection.getInputStream();
+                    InputStreamReader isr = new InputStreamReader(is, "utf-8");
+                    BufferedReader bufferedReader = new BufferedReader(isr);
                     String line;
                     bufferedReader.readLine();
                     while ((line = bufferedReader.readLine()) != null) {
@@ -234,7 +235,14 @@ public class AddCourseActivity extends AppCompatActivity {
                         }
                         dialog.dismiss();
                     }
-                }).create();
+                })
+                .setNeutralButton("Spots", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        seeSpots();
+                    }
+                })
+                .create();
         dialog.show();
     }
 
@@ -250,10 +258,10 @@ public class AddCourseActivity extends AppCompatActivity {
             protected Void doInBackground(String... strings) {
                 try {
                     URL url = new URL(strings[0]);
-                    URLConnection connection = url.openConnection();//获取互联网连接
-                    InputStream is = connection.getInputStream();//获取输入流
-                    InputStreamReader isr = new InputStreamReader(is, "utf-8");//字节转字符，字符集是utf-8
-                    BufferedReader bufferedReader = new BufferedReader(isr);//通过BufferedReader可以读取一行字符串
+                    URLConnection connection = url.openConnection();
+                    InputStream is = connection.getInputStream();
+                    InputStreamReader isr = new InputStreamReader(is, "utf-8");
+                    BufferedReader bufferedReader = new BufferedReader(isr);
                     String line;
                     bufferedReader.readLine();
                     while ((line = bufferedReader.readLine()) != null) {
@@ -290,10 +298,10 @@ public class AddCourseActivity extends AppCompatActivity {
             protected Void doInBackground(String... strings) {
                 try {
                     URL url = new URL(strings[0]);
-                    URLConnection connection = url.openConnection();//获取互联网连接
-                    InputStream is = connection.getInputStream();//获取输入流
-                    InputStreamReader isr = new InputStreamReader(is, "utf-8");//字节转字符，字符集是utf-8
-                    BufferedReader bufferedReader = new BufferedReader(isr);//通过BufferedReader可以读取一行字符串
+                    URLConnection connection = url.openConnection();
+                    InputStream is = connection.getInputStream();
+                    InputStreamReader isr = new InputStreamReader(is, "utf-8");
+                    BufferedReader bufferedReader = new BufferedReader(isr);
                     String jsonData = "";
                     //String jsonDoc ="";
                     String line;
@@ -323,11 +331,16 @@ public class AddCourseActivity extends AppCompatActivity {
                                         JSONObject jsonObject1 = new JSONObject(jsonDataFinal);
                                         String num = jsonObject1.getString(IDs.get(choose_term_index));
                                         Log.i("<--- reNew -->", num);
-                                        currentNumStudent = Integer.parseInt(num)+1+"";
-                                        ref2.update(IDs.get(choose_term_index),currentNumStudent);
+                                        currentNumStudent = Integer.parseInt(num) + 1 + "";
+                                        ref2.update(IDs.get(choose_term_index), currentNumStudent);
+
                                     }
                                     catch (JSONException e) {
-                                        Log.i("json：", "???" );
+                                        Log.i("json：", "No value" );
+                                        DocumentReference ref2 = database.collection("CourseSpots/").document(CourseID);
+                                        Map<String, Object> termStudentNum = new HashMap<>();
+                                        termStudentNum.put(IDs.get(choose_term_index), "1");
+                                        ref2.update(termStudentNum);
                                         e.printStackTrace();
                                     }
 
@@ -336,7 +349,7 @@ public class AddCourseActivity extends AppCompatActivity {
                                     DocumentReference ref2 = database.collection("CourseSpots/").document(CourseID);
                                     Map<String, Object> termStudentNum = new HashMap<>();
                                     termStudentNum.put(IDs.get(choose_term_index), "1");
-                                    currentNumStudent = "0";
+                                    currentNumStudent = "1";
                                     ref2.set(termStudentNum);
                                 }
                             } else {
@@ -394,10 +407,10 @@ public class AddCourseActivity extends AppCompatActivity {
             protected Void doInBackground(String... strings) {
                 try {
                     URL url = new URL(strings[0]);
-                    URLConnection connection = url.openConnection();//获取互联网连接
-                    InputStream is = connection.getInputStream();//获取输入流
-                    InputStreamReader isr = new InputStreamReader(is, "utf-8");//字节转字符，字符集是utf-8
-                    BufferedReader bufferedReader = new BufferedReader(isr);//通过BufferedReader可以读取一行字符串
+                    URLConnection connection = url.openConnection();
+                    InputStream is = connection.getInputStream();
+                    InputStreamReader isr = new InputStreamReader(is, "utf-8");
+                    BufferedReader bufferedReader = new BufferedReader(isr);
                     String jsonData = "";
                     //String jsonDoc ="";
                     String line;
@@ -515,6 +528,68 @@ public class AddCourseActivity extends AppCompatActivity {
                 return null;
             }
         }.execute("http://app.indal.ca/api/selectCheck/?course="+CourseID+"&term="+IDs.get(choose_term_index)+"&uid="+auth.getUid());
+    }
+
+    public void seeSpots(){
+        new AsyncTask<String, Void, Void>() {
+            @Override
+            protected Void doInBackground(String... strings) {
+                try {
+                    URL url = new URL(strings[0]);
+                    URLConnection connection = url.openConnection();
+                    InputStream is = connection.getInputStream();
+                    InputStreamReader isr = new InputStreamReader(is, "utf-8");
+                    BufferedReader bufferedReader = new BufferedReader(isr);
+                    String jsonData = "";
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        Log.i("Output：", "" + line);
+                        jsonData = jsonData + line;
+                    }
+                    Log.i("json：", "" + jsonData);
+                    bufferedReader.close();
+                    //jsonFilter(jsonData);
+                    try {
+                        JSONObject jsonObject1 = new JSONObject(jsonData);
+                        final String currentNum = jsonObject1.getString("currentNum");
+                        final String maxNum = jsonObject1.getString("maxNum");
+                        Log.i("<--- current -->", currentNum);
+                        Log.i("<--- max -->", maxNum);
+
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                AlertDialog dialog = new AlertDialog.Builder(AddCourseActivity.this)
+                                        .setTitle(CourseID)
+                                        .setMessage("Current: "+currentNum + "\nMax: "+maxNum)
+                                        .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                            }
+                                        })
+                                        .create();
+                                dialog.show();
+                            }
+                        });
+
+                    }
+                    catch (JSONException e) {
+                        Log.i("json：", "???" );
+                        e.printStackTrace();
+                    }
+                    isr.close();
+                    is.close();
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        }.execute("http://app.indal.ca/api/spots/?course="+CourseID+"&term="+IDs.get(choose_term_index));
     }
 
 }
