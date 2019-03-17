@@ -1,124 +1,215 @@
-/*
- * @author Jinkun Chen
- * @version 1
- * @time: 3.13
- * @author Xuemin Yu
- * @version 2
- * @time: 3.15
- * */
-
 package ca.indal.app.android;
 
-import android.service.autofill.Validator;
-import android.support.test.runner.AndroidJUnit4;
-import android.view.View;
+import android.util.Log;
 
-import org.hamcrest.Matcher;
-import org.junit.Rule;
+import org.json.JSONObject;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 
-import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
-
-import static android.service.autofill.Validators.not;
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.RootMatchers.isDialog;
-import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.*;
-
-@RunWith(AndroidJUnit4.class)
-@LargeTest
 public class AddCourseActivityTest {
-
-    /*
-     * The test check the web and csv that is exist or not
-     */
     @Test
-    public void validurl() throws IOException {
+    public void validConnection() throws IOException {
         String validurl = "http://app.indal.ca";
         URL url = new URL(validurl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         int status = connection.getResponseCode();
         assertEquals(200, status);
+    }
 
-        String validcsv = "http://app.indal.ca/wp-content/tables/available-term.csv";
-        URL url2 = new URL(validcsv);
-        HttpURLConnection connection2 = (HttpURLConnection) url.openConnection();
-        int status2 = connection.getResponseCode();
+    @Test
+    public void validcsvjason()throws IOException {
+
+        String validreadcsv = "http://app.indal.ca/wp-content/tables/csci4110.csv";
+        URL url2 = new URL(validreadcsv);
+        HttpURLConnection connection2 = (HttpURLConnection) url2.openConnection();
+        int status2 = connection2.getResponseCode();
         assertEquals(200, status2);
+
+        String validreadjson= "https://us-central1-universityapp-10e74.cloudfunctions.net/numStudents?course=csci4110";
+        URL url3 = new URL(validreadjson);
+        HttpURLConnection connection3 = (HttpURLConnection) url3.openConnection();
+        int status3 = connection3.getResponseCode();
+        assertEquals(200, status3);
+
     }
 
-
-    @Rule
-    public ActivityTestRule<AddCourseActivity> addActivityRule =
-            new ActivityTestRule<>(AddCourseActivity.class);
-
-    /*
-     * The test check the floating button
-     */
     @Test
-    public void button() {
-        onView(withId(R.id.fab)).perform(click());
+    public void timeCheck()throws IOException {
+        URL url4 = new URL("http://app.indal.ca/api/selectCheck/?course=csci1100&term=201801&uid=uXNhPHdZ6OeJmJHfulSw3nsB9wj2");
+        URLConnection connection4 = url4.openConnection();
+        InputStream is = connection4.getInputStream();
+        InputStreamReader isr = new InputStreamReader(is, "utf-8");
+        BufferedReader bufferedReader = new BufferedReader(isr);
+        String jsonData = "";
+        String line;
+        bufferedReader.readLine();
+        while ((line = bufferedReader.readLine()) != null) {
+            jsonData = jsonData + line;
+        }
+        bufferedReader.close();
+        isr.close();
+        is.close();
+
+        String status4 = "";
+        String illustrate = "";
+        try {
+            JSONObject jsonObject1 = new JSONObject(jsonData);
+            status4 = jsonObject1.getString("status");
+            illustrate = jsonObject1.getString("illustrate");
+        }catch (Exception e){
+            System.out.print(e.toString());
+        }
+        assertEquals("OK", status4);
+        assertEquals("", illustrate);
+
+        url4 = new URL("http://app.indal.ca/api/selectCheck/?course=math1000&term=201801&uid=uXNhPHdZ6OeJmJHfulSw3nsB9wj2");
+        connection4 = url4.openConnection();
+        is = connection4.getInputStream();
+        isr = new InputStreamReader(is, "utf-8");
+        bufferedReader = new BufferedReader(isr);
+        jsonData = "";
+        bufferedReader.readLine();
+        while ((line = bufferedReader.readLine()) != null) {
+            jsonData = jsonData + line;
+        }
+        bufferedReader.close();
+        isr.close();
+        is.close();
+
+        status4 = "";
+        illustrate = "";
+        try {
+            JSONObject jsonObject1 = new JSONObject(jsonData);
+            status4 = jsonObject1.getString("status");
+            illustrate = jsonObject1.getString("illustrate");
+        }catch (Exception e){
+            System.out.print(e.toString());
+        }
+        assertEquals("No", status4);
+        assertEquals("Time Confilct. ", illustrate);
+
+
     }
 
-
-    /*
-     * The test check the alertdialog
-     */
     @Test
-    public void alertdialog() {
-        onView(withText("Term Selection")).check(matches(isDisplayed()));
-        onView(withText(android.R.id.button1))
-                .inRoot(isDialog())
-                .check(matches(withText("CLOSE")))
-                .check(matches(isDisplayed()));
-        onView(withText(android.R.id.button2))
-                .inRoot(isDialog())
-                .check(matches(withText("ADD COURSE")))
-                .check(matches(isDisplayed()));
-        onView(withText("2018 Fall Term")).perform(click());
-        onView(withText("2018 Winter Term")).perform(click());
-        onView(withText("2018 Summer Term")).perform(click());
+    public void selectcheck()throws IOException {
+        URL url4 = new URL("http://app.indal.ca/api/selectCheck/?course=csci1100&term=201801&uid=uXNhPHdZ6OeJmJHfulSw3nsB9wj2");
+        URLConnection connection4 = url4.openConnection();
+        InputStream is = connection4.getInputStream();
+        InputStreamReader isr = new InputStreamReader(is, "utf-8");
+        BufferedReader bufferedReader = new BufferedReader(isr);
+        String jsonData = "";
+        String line;
+        bufferedReader.readLine();
+        while ((line = bufferedReader.readLine()) != null) {
+            jsonData = jsonData + line;
+        }
+        bufferedReader.close();
+        isr.close();
+        is.close();
 
+        String status4 = "";
+        String illustrate = "";
+        try {
+            JSONObject jsonObject1 = new JSONObject(jsonData);
+            status4 = jsonObject1.getString("status");
+            illustrate = jsonObject1.getString("illustrate");
+        }catch (Exception e){
+            System.out.print(e.toString());
+        }
+        assertEquals("OK", status4);
+        assertEquals("", illustrate);
+
+        url4 = new URL("http://app.indal.ca/api/selectCheck/?course=test&term=201801&uid=uXNhPHdZ6OeJmJHfulSw3nsB9wj2");
+        connection4 = url4.openConnection();
+        is = connection4.getInputStream();
+        isr = new InputStreamReader(is, "utf-8");
+        bufferedReader = new BufferedReader(isr);
+        jsonData = "";
+        bufferedReader.readLine();
+        while ((line = bufferedReader.readLine()) != null) {
+            jsonData = jsonData + line;
+        }
+        bufferedReader.close();
+        isr.close();
+        is.close();
+
+        status4 = "";
+        illustrate = "";
+        try {
+            JSONObject jsonObject1 = new JSONObject(jsonData);
+            status4 = jsonObject1.getString("status");
+            illustrate = jsonObject1.getString("illustrate");
+        }catch (Exception e){
+            System.out.print(e.toString());
+        }
+        assertEquals("No", status4);
+        assertEquals("Course Full. ", illustrate);
     }
 
-    /*
-     * The test check the Toast notify
-     */
     @Test
-    public void toast() {
-        onView(withText("2018 Fall Term"))
-                .inRoot(withDecorView((Matcher<View>) not((Validator) addActivityRule.getActivity().getWindow().getDecorView())))
-                .check(matches(withText("2018 Fall Term")));
+    public void requiredCheck()throws IOException {
+        URL url4 = new URL("http://app.indal.ca/api/selectCheck/?course=csci1100&term=201801&uid=uXNhPHdZ6OeJmJHfulSw3nsB9wj2");
+        URLConnection connection4 = url4.openConnection();
+        InputStream is = connection4.getInputStream();
+        InputStreamReader isr = new InputStreamReader(is, "utf-8");
+        BufferedReader bufferedReader = new BufferedReader(isr);
+        String jsonData = "";
+        String line;
+        bufferedReader.readLine();
+        while ((line = bufferedReader.readLine()) != null) {
+            jsonData = jsonData + line;
+        }
+        bufferedReader.close();
+        isr.close();
+        is.close();
 
-        onView(withText("2018 Winter Term"))
-                .inRoot(withDecorView((Matcher<View>) not((Validator) addActivityRule.getActivity().getWindow().getDecorView())))
-                .check(matches(withText("2018 Winter Term")));
+        String status4 = "";
+        String illustrate = "";
+        try {
+            JSONObject jsonObject1 = new JSONObject(jsonData);
+            status4 = jsonObject1.getString("status");
+            illustrate = jsonObject1.getString("illustrate");
+        } catch (Exception e) {
+            System.out.print(e.toString());
+        }
+        assertEquals("OK", status4);
+        assertEquals("", illustrate);
 
-        onView(withText("2018 Summer Term"))
-                .inRoot(withDecorView((Matcher<View>) not((Validator) addActivityRule.getActivity().getWindow().getDecorView())))
-                .check(matches(withText("2018 Summer Term")));
+        url4 = new URL("http://app.indal.ca/api/selectCheck/?course=csci4110&term=201801&uid=uXNhPHdZ6OeJmJHfulSw3nsB9wj2");
+        connection4 = url4.openConnection();
+        is = connection4.getInputStream();
+        isr = new InputStreamReader(is, "utf-8");
+        bufferedReader = new BufferedReader(isr);
+        jsonData = "";
+        bufferedReader.readLine();
+        while ((line = bufferedReader.readLine()) != null) {
+            jsonData = jsonData + line;
+        }
+        bufferedReader.close();
+        isr.close();
+        is.close();
 
-        onView(withText(android.R.id.button2))
-                .inRoot(withDecorView((Matcher<View>) not((Validator) addActivityRule.getActivity().getWindow().getDecorView())))
-                .check(matches(withText("Successful")));
+        status4 = "";
+        illustrate = "";
+        try {
+            JSONObject jsonObject1 = new JSONObject(jsonData);
+            status4 = jsonObject1.getString("status");
+            illustrate = jsonObject1.getString("illustrate");
+        } catch (Exception e) {
+            System.out.print(e.toString());
+        }
+        assertEquals("No", status4);
+        assertEquals("Miss Required Course. ", illustrate);
     }
-
-
-
-
-
-
-
 
 }
