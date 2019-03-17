@@ -49,6 +49,26 @@
             android:name=".AddCourseActivity"
             android:parentActivityName=".AddCourseActivity" />
 
+        <activity
+            android:name=".ImportantDatesActivity"
+            android:parentActivityName=".ImportantDatesActivity" />
+
+        <activity
+            android:name=".WeeklyScheduleActivity"
+            android:parentActivityName=".WeeklyScheduleActivity" />
+
+        <activity
+            android:name=".UserInformation"
+            android:parentActivityName=".UserInformation" />
+
+        <activity
+            android:name=".NewsActivity"
+            android:parentActivityName=".NewsActivity" />
+
+        <activity
+            android:name=".Feedback"
+            android:parentActivityName=".Feedback" />
+
 
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>

@@ -101,7 +101,6 @@ public class AcademicRecord extends AppCompatActivity {
 
         webView = findViewById(R.id.webview1);
         webView.setWebViewClient(new WebViewClient() {
-            //设置在webView点击打开的新网页在当前界面显示,而不跳转到新的浏览器中
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
@@ -131,8 +130,8 @@ public class AcademicRecord extends AppCompatActivity {
             }
 
         });
-        webView.getSettings().setJavaScriptEnabled(true);  //设置WebView属性,运行执行js脚本
-        webView.loadUrl("http://app.indal.ca/api/record/?uid="+auth.getUid());          //调用loadUrl方法为WebView加入链接
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("http://app.indal.ca/api/record/?uid="+auth.getUid());
 
     }
 
@@ -147,7 +146,7 @@ public class AcademicRecord extends AppCompatActivity {
             webView.goBack();
         } else {
             if ((System.currentTimeMillis() - exitTime) > 2000) {
-                Toast.makeText(getApplicationContext(), "再按一次退出程序",
+                Toast.makeText(getApplicationContext(), "Try again to exit",
                         Toast.LENGTH_SHORT).show();
                 exitTime = System.currentTimeMillis();
             } else {
@@ -169,10 +168,10 @@ public class AcademicRecord extends AppCompatActivity {
             protected Void doInBackground(String... strings) {
                 try {
                     URL url = new URL(strings[0]);
-                    URLConnection connection = url.openConnection();//获取互联网连接
-                    InputStream is = connection.getInputStream();//获取输入流
-                    InputStreamReader isr = new InputStreamReader(is, "utf-8");//字节转字符，字符集是utf-8
-                    BufferedReader bufferedReader = new BufferedReader(isr);//通过BufferedReader可以读取一行字符串
+                    URLConnection connection = url.openConnection();
+                    InputStream is = connection.getInputStream();
+                    InputStreamReader isr = new InputStreamReader(is, "utf-8");
+                    BufferedReader bufferedReader = new BufferedReader(isr);
                     String line;
                     bufferedReader.readLine();
                     while ((line = bufferedReader.readLine()) != null) {
@@ -288,10 +287,10 @@ public class AcademicRecord extends AppCompatActivity {
             protected Void doInBackground(String... strings) {
                 try {
                     URL url = new URL(strings[0]);
-                    URLConnection connection = url.openConnection();//获取互联网连接
-                    InputStream is = connection.getInputStream();//获取输入流
-                    InputStreamReader isr = new InputStreamReader(is, "utf-8");//字节转字符，字符集是utf-8
-                    BufferedReader bufferedReader = new BufferedReader(isr);//通过BufferedReader可以读取一行字符串
+                    URLConnection connection = url.openConnection();
+                    InputStream is = connection.getInputStream();
+                    InputStreamReader isr = new InputStreamReader(is, "utf-8");
+                    BufferedReader bufferedReader = new BufferedReader(isr);
                     String jsonData = "";
                     //String jsonDoc ="";
                     String line;
