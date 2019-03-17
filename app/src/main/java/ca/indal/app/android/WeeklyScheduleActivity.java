@@ -2,6 +2,9 @@
  * @author Xuemin Yu, Jinkun Chen
  * @version 1
  * @time:3.16
+ * author Xuemin Yu
+ * @version 2
+ * @time:3.17
  * */
 
 package ca.indal.app.android;
@@ -129,6 +132,9 @@ public class WeeklyScheduleActivity extends AppCompatActivity {
      * This method is used to create an dialog for user to choose term before showing the user's weekly schedule
      * @return Nothing.
      * */
+    /*
+     * delete the unnecessary negative button 3.17
+     */
     public void termSelection() {
         auth = FirebaseAuth.getInstance();
         final String authUid = auth.getUid();
@@ -142,12 +148,6 @@ public class WeeklyScheduleActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         choose_term_index = which;
                         Toast.makeText(WeeklyScheduleActivity.this, items[which], Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
                     }
                 })
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
