@@ -1,12 +1,16 @@
+/*
+ * @author Yang Shu, Jessie Wang
+ * @version 0.1
+ * User object for received the information for current user who login in the application
+ * version 0.2
+ * add new method for the new perimeter name and b number
+ * version 0.3
+ * rework for the new user object for the new future
+ * @time: 3.8
+ */
 package ca.indal.app.android.model;
 
 import java.io.Serializable;
-
-/*
- * @author Yang Shu, Jessie Wang
- * @version 0.10
- * User object for received the information for current user who login in the application
- */
 
 public class User implements Serializable {
 
@@ -28,6 +32,10 @@ public class User implements Serializable {
         this.role = role;
     }
 
+    /*
+    * get and set method for perimeters
+    * @return String
+    */
     public String getEmail() {
         return email;
     }
@@ -44,6 +52,9 @@ public class User implements Serializable {
 
     public void setBn(String bn) { this.bn = bn; }
 
+    /*
+    * To string method return the email and uid in the firebase
+    * */
     @Override
     public String toString()
     {

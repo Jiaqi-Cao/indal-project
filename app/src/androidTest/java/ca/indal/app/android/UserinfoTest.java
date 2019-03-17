@@ -1,3 +1,10 @@
+/*
+ * @author Yang Shu
+ * @version 1.0
+ * Testing is current login in user login successfully by campare the new
+ * @time: 3.15
+ */
+
 package ca.indal.app.android;
 
 import android.support.test.runner.AndroidJUnit4;
@@ -13,11 +20,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/*
- * @author Yang Shu
- * @version 1.0
- * Testing is current login in user login successfully
- */
 @RunWith(AndroidJUnit4.class)
 public class UserinfoTest {
     private FirebaseUser current_uesr;

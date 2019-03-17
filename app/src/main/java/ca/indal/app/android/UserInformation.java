@@ -1,3 +1,13 @@
+/*
+ * @author Yang Shu, Jessie Wang
+ * @Version 0.1 by Yang
+ * create the connection between the activity
+ * @Version 0.2 by Jessie
+ * getting the information from the firebase
+ * Version 0.3 by Yang
+ * setup the user information and display on the activity and new method for future
+ * @time: 3.16
+ */
 package ca.indal.app.android;
 
 import android.content.Intent;
@@ -13,10 +23,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-/*
- * @author Yang Shu, Jessie Wang
- * Display the current login user information from the fire base
- */
 
 public class UserInformation extends AppCompatActivity {
 
@@ -31,6 +37,10 @@ public class UserInformation extends AppCompatActivity {
 
     private Intent intent;
 
+    /*
+     * main activity read the all user information and display on the UI
+     * @return Nothings
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +61,7 @@ public class UserInformation extends AppCompatActivity {
         if(curr_user != null) {
             email.setText(curr_user.getEmail());
             uid.setText(curr_user.getUid());
-        }else{
+        }else{//if Firebase return has error
             name.setText("Can't get user name");
             email.setText("Can't get user email");
             b_num.setText("Can't find user B-number");
@@ -66,6 +76,10 @@ public class UserInformation extends AppCompatActivity {
         });
     }
 
+    /*
+     * This method is used for future
+     * @return Nothing
+     */
     private void updateContact(){
         auth = FirebaseAuth.getInstance();
 
@@ -74,7 +88,6 @@ public class UserInformation extends AppCompatActivity {
         if(curr_user != null){
 
         }else{
-
         }
 
         finish();
