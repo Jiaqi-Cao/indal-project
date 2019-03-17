@@ -9,39 +9,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="18f9b0c3-ee70-44c4-91a0-384863cf0e9e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/androidTest/java/ca/indal/app/android/AcademicRecordTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/androidTest/java/ca/indal/app/android/FeedbackTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/androidTest/java/ca/indal/app/android/ImportantDatesActivityTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/androidTest/java/ca/indal/app/android/NewsActivityTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/androidTest/java/ca/indal/app/android/UserInformationTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/androidTest/java/ca/indal/app/android/WeeklyScheduleActivityTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/ca/indal/app/android/Feedback.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/ca/indal/app/android/ImportantDatesActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/ca/indal/app/android/NewsActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/ca/indal/app/android/UserInformation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/ca/indal/app/android/WeeklyScheduleActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_feedback.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_importantdates.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_news.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_user_info.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_weeklyschedule.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/ca/indal/app/android/AddCourseActivityTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/androidTest/java/ca/indal/app/android/AddCourseActivityTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/indal/app/android/AcademicRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/indal/app/android/AcademicRecord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/indal/app/android/AddCourseActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/indal/app/android/AddCourseActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/indal/app/android/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/indal/app/android/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-    </list>
+    <list default="true" id="18f9b0c3-ee70-44c4-91a0-384863cf0e9e" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/build/classes/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -60,7 +28,7 @@
     <session id="-945988813">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="21" />
+          <entry key="project.closed" value="22" />
           <entry key="project.open.time.0" value="2" />
           <entry key="project.open.time.1" value="2" />
           <entry key="project.open.time.2" value="1" />
@@ -243,10 +211,9 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/ca/indal/app/android/UserInformationTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="23" column="22" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="22" />
+            <state relative-caret-position="60">
+              <caret line="4" column="14" lean-forward="true" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
               <folding>
-                <element signature="e#0#1053#0" expanded="true" />
                 <element signature="imports" expanded="true" />
               </folding>
             </state>
@@ -752,9 +719,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="selectcheck() - 2019.03.17 at 17h 59m 09s.xml">
-      <configuration name="selectcheck()" configurationId="AndroidTestRunConfigurationType" />
-    </history-entry>
     <history-entry file="selectcheck() - 2019.03.17 at 18h 06m 24s.xml">
       <configuration name="selectcheck()" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
@@ -782,6 +746,9 @@
     <history-entry file="requiredCheck() - 2019.03.17 at 18h 51m 55s.xml">
       <configuration name="requiredCheck()" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
+    <history-entry file="UserInformationTest - 2019.03.17 at 18h 57m 45s.xml">
+      <configuration name="UserInformationTest" configurationId="AndroidTestRunConfigurationType" />
+    </history-entry>
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -797,14 +764,14 @@
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" sideWeight="0.50734097" side_tool="true" weight="0.2814408" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.69951534" visible="true" weight="0.31257632" />
-      <window_info id="Structure" order="2" sideWeight="0.30048466" side_tool="true" visible="true" weight="0.31257632" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.6995614" visible="true" weight="0.31257632" />
+      <window_info id="Structure" order="2" sideWeight="0.30043858" side_tool="true" visible="true" weight="0.31257632" />
       <window_info id="Build Variants" order="3" side_tool="true" />
       <window_info id="Image Layers" order="4" />
       <window_info id="Designer" order="5" />
       <window_info id="Capture Tool" order="6" />
       <window_info id="Favorites" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Run" order="0" visible="true" weight="0.32127193" />
+      <window_info anchor="bottom" id="Run" order="0" weight="0.32127193" />
       <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.4993895" weight="0.32785088" />
       <window_info anchor="bottom" id="TODO" order="2" weight="0.32894737" />
       <window_info anchor="bottom" id="Android Profiler" order="3" weight="0.32894737" />
@@ -1233,10 +1200,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/ca/indal/app/android/UserInformationTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="22" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="22" />
+        <state relative-caret-position="60">
+          <caret line="4" column="14" lean-forward="true" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
           <folding>
-            <element signature="e#0#1053#0" expanded="true" />
             <element signature="imports" expanded="true" />
           </folding>
         </state>
