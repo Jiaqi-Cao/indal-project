@@ -64,6 +64,9 @@
         <activity
             android:name=".News"
             android:parentActivityName=".News" />
+        <activity
+            android:name=".Feedback"
+            android:parentActivityName=".Feedback" />
 
 
         <service android:name=".MyFirebaseMessagingService">

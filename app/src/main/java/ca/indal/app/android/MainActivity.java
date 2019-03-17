@@ -26,7 +26,7 @@ import ca.indal.app.android.model.User;
 public class MainActivity extends AppCompatActivity {
 
     private Button btnChangeEmail, btnChangePassword, btnSendResetEmail, btnRemoveUser, btnAddDropCourse,
-            changeEmail, changePassword, sendEmail, news,remove, signOut, courseTree;
+            changeEmail, changePassword, sendEmail, news,feedback,remove, signOut, courseTree;
 
     private EditText oldEmail, newEmail, password, newPassword;
     private ProgressBar progressBar;
@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         changePassword = (Button) findViewById(R.id.changePass);
         sendEmail = (Button) findViewById(R.id.send);
         news = (Button) findViewById(R.id.news_button);
+        feedback = (Button) findViewById(R.id.feedback_button);
         remove = (Button) findViewById(R.id.remove);
         signOut = (Button) findViewById(R.id.sign_out);
         courseTree = (Button) findViewById(R.id.courseTree);
@@ -116,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 changePassword.setVisibility(View.GONE);
                 sendEmail.setVisibility(View.GONE);
                 news.setVisibility(View.GONE);
+                feedback.setVisibility(View.GONE);
                 remove.setVisibility(View.GONE);
             }
         });
@@ -203,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
                 changePassword.setVisibility(View.GONE);
                 sendEmail.setVisibility(View.VISIBLE);
                 news.setVisibility(View.GONE);
+                feedback.setVisibility(View.GONE);
                 remove.setVisibility(View.GONE);
             }
         });
@@ -245,6 +248,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, News.class));
+            }
+        });
+
+        feedback.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, Feedback.class));
             }
         });
 

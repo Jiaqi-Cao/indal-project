@@ -1,9 +1,9 @@
 package ca.indal.app.android;
 
-import android.webkit.WebView;
+
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
+
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
