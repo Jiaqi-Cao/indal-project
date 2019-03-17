@@ -6,6 +6,14 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+/*
+* @ author Jessie Wang
+* @ version 1
+* @ author Yang Shu
+* @ version
+* @ time 3.8
+* */
+
 public class News extends AppCompatActivity {
 
     private WebView webView1;
@@ -13,6 +21,10 @@ public class News extends AppCompatActivity {
     private String currentURL = "";
 
 
+    /*
+     * This method build the webview of the news
+     * @return nothing
+     * */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +55,10 @@ public class News extends AppCompatActivity {
     }
 
 
+    /*
+     * This method build the onBackPressed of the news
+     * @return nothing
+     * */
 
     @Override
     public void onBackPressed() {

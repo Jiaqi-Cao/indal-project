@@ -6,6 +6,15 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+/*
+ * @ author Jessie Wang
+ * @ version 1
+ * @ author Yang Shu
+ * @ version
+ * @ time 3.13
+ * */
+
+
 public class Feedback extends AppCompatActivity {
 
     private WebView webView2;
@@ -13,7 +22,10 @@ public class Feedback extends AppCompatActivity {
     private String currentURL = "";
 
 
-
+    /*
+     * This method build the webview of the feedback
+     * @return nothing
+     * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +53,11 @@ public class Feedback extends AppCompatActivity {
         webView2.getSettings().setJavaScriptEnabled(true);
         webView2.loadUrl("http://news.app.indal.ca/feedback/");
     }
+
+    /*
+     * This method build the onBackPressed of the feedback
+     * @return nothing
+     * */
 
     @Override
     public void onBackPressed() {
