@@ -61,6 +61,10 @@
             android:name=".AddCourseActivity"
             android:parentActivityName=".AddCourseActivity" />
 
+        <activity
+            android:name=".ImportantDatesActivity"
+            android:parentActivityName=".ImportantDatesActivity" />
+
 
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>

@@ -1,6 +1,9 @@
 /*
 * @author Jinkun Chen
 * @version 1
+* @author Xuemin Yu
+* @version 2
+* @time: 3.15
 * */
 package ca.indal.app.android;
 
@@ -8,6 +11,7 @@ package ca.indal.app.android;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,13 +22,15 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,11 +39,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
+
 import java.util.Map;
 
 import ca.indal.app.android.model.Course;
 import ca.indal.app.android.model.CourseSpot;
+
 import ca.indal.app.android.model.User_CourseSpot;
 
 
@@ -57,8 +65,8 @@ public class AddCourseActivity extends AppCompatActivity {
     private Course course;
     private CourseSpot courseSpot;
     int choose_term_index = 0;
-    private String maxspot;
-    private  int max;
+    String currentNumStudent = "";
+
 
     private String wholeJsonData = "";
     private ArrayList<String> emailhahaha = new ArrayList<String>();
@@ -115,6 +123,7 @@ public class AddCourseActivity extends AppCompatActivity {
 
                 if (cat.equals("course")) {
                     readCourseInfoCSV(terms.get(choose_term_index));
+                    //readNumJson();
                     fab.show();
 
                 } else {
@@ -132,7 +141,7 @@ public class AddCourseActivity extends AppCompatActivity {
 
     /*
     * This method build the go back button for Add and Drop Activity
-    * @return Nothong.
+    * @return Nothing.
     * */
     @Override
     public void onBackPressed() {
@@ -193,12 +202,16 @@ public class AddCourseActivity extends AppCompatActivity {
      * This method is used to create an dialog for user to choose term before course selection
      * @return Nothing.
      * */
+
+    /*
+     * Read all code and delete the unnecessary code and commend
+     * Refract the notify (Toast part) to show the term name
+     */
     public void termSelection() {
         auth = FirebaseAuth.getInstance();
         final String authUid = auth.getUid();
         database = FirebaseFirestore.getInstance();
-        //int choose = -1;
-        //course = (Course) intent.getSerializableExtra("Course");
+
 
         final String items[] = (String[])terms.toArray(new String[terms.size()]);;
         AlertDialog dialog = new AlertDialog.Builder(this)
@@ -206,8 +219,6 @@ public class AddCourseActivity extends AppCompatActivity {
                 .setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //Toast.makeText(AddCourseActivity.this, items[which], Toast.LENGTH_SHORT).show();
-                        //Toast.makeText(AddCourseActivity.this, items[which], Toast.LENGTH_SHORT).show();
                         choose_term_index = which;
                         Toast.makeText(AddCourseActivity.this, items[which], Toast.LENGTH_SHORT).show();
                     }
@@ -221,10 +232,7 @@ public class AddCourseActivity extends AppCompatActivity {
                 .setPositiveButton("Add Course", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //Course c = new Course();
                         if(!CourseID.equals("")){
-                            //Course c = new Course(value,IDs.get(choose_term_index));
-                            //readCourseInfoCSV(terms.get(choose_term_index));
                             DocumentReference ref = database.collection("User/"+authUid+"/"+IDs.get(choose_term_index)).document(CourseID);
                             DocumentReference ref2 = database.collection("CourseSpot/").document(CourseID);
                             ref.set(course);
@@ -234,15 +242,6 @@ public class AddCourseActivity extends AppCompatActivity {
 
                             Toast.makeText(AddCourseActivity.this, "Successful", Toast.LENGTH_SHORT).show();
 
-                            //Every time, if user click "add course" button, then the available spot minus one until zero
-                            if(max != 0){
-                                max--;
-                                Toast.makeText(AddCourseActivity.this, "Available Spots: "+ max, Toast.LENGTH_SHORT).show();
-                            }
-                            else{
-                                Toast.makeText(AddCourseActivity.this, "Unsuccessful! Remaining zero seats", Toast.LENGTH_SHORT).show();
-                            }
-
                         }
                         dialog.dismiss();
                     }
@@ -251,7 +250,7 @@ public class AddCourseActivity extends AppCompatActivity {
     }
 
     /*
-     * This method is used to read the CSV file from the server in order to get the course information
+     * This method is used to read the CSV file from the server in order to get the course
      * @return Nothing.
      * @exception IOException On input error.
      * @see IOException
@@ -272,12 +271,6 @@ public class AddCourseActivity extends AppCompatActivity {
                         Log.i("Output：", "" + line);
                         String item[] = line.split(",");
                         course = new Course(CourseID, IDs.get(choose_term_index), item[2], item[3], item[7]);
-
-                        //course read max spot in the course and record it
-                        maxspot = item[6];
-                        max = Integer.parseInt(maxspot);
-                        System.out.println("MaxSpots: " + max);
-                        //max = Integer.parseInt(maxspot);
                         courseSpot = new CourseSpot(CourseID);
 
                     }
@@ -295,24 +288,85 @@ public class AddCourseActivity extends AppCompatActivity {
         }.execute("http://app.indal.ca/wp-content/tables/"+CourseID+".csv");
     }
 
-    /*public void jsonFilter(String jsonData){
-        try {
-            JSONObject jsonObject = new JSONObject(jsonData);
-            Iterator keys = jsonObject.keys();
-            Log.i("<--- Json -->", jsonObject.getString("createTime"));
-            //通过迭代器获得json当中所有的key值
-            //然后通过循环遍历出的key值
-            while (keys.hasNext()){
-                String key = String.valueOf(keys.next());
-                //Log.i("!!!!!!->json：", "" + key);
-                //通过通过刚刚得到的key值去解析后面的json了
-            }
-        }
-        catch (JSONException e) {
-            //Log.i("json：", "???" );
-            e.printStackTrace();
-        }
-        //return
-    }*/
+    /*
+     * This method is used to read the CSV file from the server in order to get the number of student who registered the course
+     * @return Nothing.
+     * @exception IOException On input error.
+     * @see IOException
+     * */
 
+    public void readNumJson() {
+        new AsyncTask<String, Void, Void>() {
+            @Override
+            protected Void doInBackground(String... strings) {
+                try {
+                    URL url = new URL(strings[0]);
+                    URLConnection connection = url.openConnection();//获取互联网连接
+                    InputStream is = connection.getInputStream();//获取输入流
+                    InputStreamReader isr = new InputStreamReader(is, "utf-8");//字节转字符，字符集是utf-8
+                    BufferedReader bufferedReader = new BufferedReader(isr);//通过BufferedReader可以读取一行字符串
+                    String jsonData = "";
+                    //String jsonDoc ="";
+                    String line;
+                    //bufferedReader.readLine();
+                    while ((line = bufferedReader.readLine()) != null) {
+                        Log.i("Output：", "" + line);
+                        jsonData = jsonData + line;
+                    }
+                    Log.i("json：", "" + jsonData);
+                    bufferedReader.close();
+
+                    final String jsonDataFinal = jsonData;
+
+                    DocumentReference ref2 = database.collection("CourseSpots/").document(CourseID);
+                    ref2.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document.exists()) {
+                                    Log.d("LOGGER", "There is such document！！！");
+                                    currentNumStudent = document.getString(IDs.get(choose_term_index));
+
+                                    // Read Current Student Number
+                                    try {
+                                        DocumentReference ref2 = database.collection("CourseSpots/").document(CourseID);
+                                        JSONObject jsonObject1 = new JSONObject(jsonDataFinal);
+                                        String num = jsonObject1.getString(IDs.get(choose_term_index));
+                                        Log.i("<--- reNew -->", num);
+                                        currentNumStudent = Integer.parseInt(num)-1+"";
+                                        ref2.update(IDs.get(choose_term_index),currentNumStudent);
+                                    }
+                                    catch (JSONException e) {
+                                        Log.i("json：", "???" );
+                                        e.printStackTrace();
+                                    }
+
+                                } else {
+                                    Log.d("LOGGER", "No such document！！！");
+                                    DocumentReference ref2 = database.collection("CourseSpots/").document(CourseID);
+                                    Map<String, Object> termStudentNum = new HashMap<>();
+                                    termStudentNum.put(IDs.get(choose_term_index), "1");
+                                    currentNumStudent = "0";
+                                    ref2.set(termStudentNum);
+                                }
+                            } else {
+                                Log.d("LOGGER", "get failed with ", task.getException());
+                            }
+                        }
+                    });
+
+                    isr.close();
+                    is.close();
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        }.execute("https://us-central1-universityapp-10e74.cloudfunctions.net/numStudents?course=" + CourseID);
+
+    }
 }
