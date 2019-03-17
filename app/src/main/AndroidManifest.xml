@@ -12,7 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".course_history"></activity>
         <activity
             android:name=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -22,6 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_profile"
@@ -33,32 +33,30 @@
         <activity
             android:name=".ResetPasswordActivity"
             android:label="@string/title_activity_reset_password"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity
             android:name=".CourseTreeActivity"
             android:label="Course Tree"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
         <activity
-            android:name=".add_drop_course.add_drop_course_MainActivity"
-            android:parentActivityName=".add_drop_course.add_drop_course_MainActivity" />
-        <activity
-            android:name=".add_drop_course.CourseDetail"
-            android:parentActivityName=".add_drop_course.CourseDetail" />
-        <activity
-            android:name=".add_drop_course.DropMain"
-            android:parentActivityName=".add_drop_course.DropMain" />
-        <activity
-            android:name=".add_drop_course.DropDetail"
-            android:parentActivityName=".add_drop_course.DropDetail" />
+            android:name=".AcademicRecord"
+            android:parentActivityName=".AcademicRecord" />
+
         <activity
             android:name=".AddCourseActivity"
             android:parentActivityName=".AddCourseActivity" />
+
 
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+
     </application>
 
 </manifest>

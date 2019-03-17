@@ -25,12 +25,12 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="1020dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <EditText
@@ -132,7 +132,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Add or Droup Courses"
+            android:text="Add Courses"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/AcademicRecord"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Academic Record/Drop Course"
             android:textStyle="bold" />
 
         <Button
@@ -183,19 +192,13 @@
         <Button
             android:id="@+id/sign_out"
             style="?android:textAppearanceSmall"
-            android:layout_width="380dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@color/colorPrimary"
             android:text="@string/btn_sign_out"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/history"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="See my course history" />
 
     </LinearLayout>
 
