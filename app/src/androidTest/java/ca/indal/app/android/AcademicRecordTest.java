@@ -1,3 +1,11 @@
+/*
+ * @author Jinkun Chen
+ * @version 1
+ * @author Jiaqi Cao
+ * @version 2
+ * @author Sherry Kuang
+ * @version 3
+ * */
 package ca.indal.app.android;
 
 import org.junit.Test;
@@ -7,7 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import static org.junit.Assert.*;
-public class AddCourseActivityTest {
+public class AcademicRecordTest {
     @Test
     public void validConnection() throws IOException {
         String validurl = "http://app.indal.ca";
