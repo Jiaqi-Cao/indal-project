@@ -13,17 +13,19 @@ public class User implements Serializable {
     public String email;
     public String UID;
     public String role;
+    public String name;
+    public String bn;
 
     public User()
     {
 
     }
 
-    public User(String email, String UID,String role)
+    public User(String email, String UID, String role)
     {
         this.email = email;
         this.UID = UID;
-        this.role=role;
+        this.role = role;
     }
 
     public String getEmail() {
@@ -34,9 +36,17 @@ public class User implements Serializable {
         return UID;
     }
 
+    public String getName() { return name; }
+
+    public String getBn() { return bn; }
+
+    public void setName(String name) { this.name = name; }
+
+    public void setBn(String bn) { this.bn = bn; }
+
     @Override
     public String toString()
     {
-        return "Email: " + email + " UID: " + UID+ " role: " + role;
+        return "Email: " + email + " UID: " + UID;
     }
 }
