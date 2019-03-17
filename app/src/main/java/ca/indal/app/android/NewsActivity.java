@@ -11,61 +11,62 @@ import android.widget.Toast;
  * @ version 1
  * @ author Yang Shu
  * @ version
- * @ time 3.13
+ * @ time 3.8
  * */
 
+public class NewsActivity extends AppCompatActivity {
 
-public class Feedback extends AppCompatActivity {
-
-    private WebView webView2;
+    private WebView webView1;
     private long exitTime = 0;
     private String currentURL = "";
 
 
     /*
-     * This method build the webview of the feedback
+     * This method build the webview of the news
      * @return nothing
      * */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_feedback);
+        setContentView(R.layout.activity_news);
 
 
-        webView2 = findViewById(R.id.webview3);
-        webView2.setWebViewClient(new WebViewClient() {
+        webView1 = findViewById(R.id.webview2);
+        webView1.setWebViewClient(new WebViewClient() {
 
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view1, String url) {
-                view1.loadUrl(url);
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
                 return true;
             }
 
             @Override
-            public void onPageFinished(WebView view1, String url) {
-                super.onPageFinished(view1, url);
-                currentURL = webView2.getUrl();
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                currentURL = webView1.getUrl();
 
 
             }
 
         });
-        webView2.getSettings().setJavaScriptEnabled(true);
-        webView2.loadUrl("http://news.app.indal.ca/feedback/");
+        webView1.getSettings().setJavaScriptEnabled(true);
+        webView1.loadUrl("http://news.app.indal.ca");
     }
 
+
     /*
-     * This method build the onBackPressed of the feedback
+     * This method build the onBackPressed of the news
      * @return nothing
      * */
 
     @Override
     public void onBackPressed() {
-        if (webView2.canGoBack()) {
-            webView2.goBack();
+        if (webView1.canGoBack()) {
+            webView1.goBack();
         } else {
             if ((System.currentTimeMillis() - exitTime) > 2000) {
-                Toast.makeText(getApplicationContext(), "再按一次退出程序",
+                Toast.makeText(getApplicationContext(), "Try again for exit",
                         Toast.LENGTH_SHORT).show();
                 exitTime = System.currentTimeMillis();
             } else {

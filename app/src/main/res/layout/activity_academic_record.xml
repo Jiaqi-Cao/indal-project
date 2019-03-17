@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddCourseActivity"
+    tools:context=".AcademicRecord"
     android:background="#DFDBDB">
 
 
@@ -22,7 +22,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="30dp"
         android:clickable="true"
-        app:srcCompat="@android:drawable/ic_input_add"
+        app:srcCompat="@android:drawable/ic_input_delete"
         android:visibility="gone"
         android:tint="#000000"
         app:backgroundTint="#FFFFFF"

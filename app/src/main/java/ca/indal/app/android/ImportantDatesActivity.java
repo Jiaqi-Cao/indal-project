@@ -1,39 +1,36 @@
+/*
+ * @author Xuemin Yu
+ * @version 1
+ * @time:3.15
+ * */
 package ca.indal.app.android;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-/*
-* @ author Jessie Wang
-* @ version 1
-* @ author Yang Shu
-* @ version
-* @ time 3.8
-* */
+public class ImportantDatesActivity extends AppCompatActivity {
 
-public class News extends AppCompatActivity {
-
-    private WebView webView1;
+    private WebView webview3;
     private long exitTime = 0;
     private String currentURL = "";
 
 
     /*
-     * This method build the webview of the news
-     * @return nothing
+     * This method build the interface of Important Date Activity
+     * add the important date webview
+     * @return Nothing
      * */
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.news);
+        setContentView(R.layout.activity_importantdates);
 
 
-        webView1 = findViewById(R.id.webview2);
-        webView1.setWebViewClient(new WebViewClient() {
+        webview3 = findViewById(R.id.webview3);
+        webview3.setWebViewClient(new WebViewClient() {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -44,29 +41,25 @@ public class News extends AppCompatActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                currentURL = webView1.getUrl();
-
-
+                currentURL = webview3.getUrl();
             }
 
         });
-        webView1.getSettings().setJavaScriptEnabled(true);
-        webView1.loadUrl("http://news.app.indal.ca");
+        webview3.getSettings().setJavaScriptEnabled(true);
+        webview3.loadUrl("http://news.app.indal.ca/important-dates/");
     }
 
-
     /*
-     * This method build the onBackPressed of the news
-     * @return nothing
+     * This method build the go back button for Add and Drop Activity
+     * @return Nothing.
      * */
-
     @Override
     public void onBackPressed() {
-        if (webView1.canGoBack()) {
-            webView1.goBack();
+        if (webview3.canGoBack()) {
+            webview3.goBack();
         } else {
             if ((System.currentTimeMillis() - exitTime) > 2000) {
-                Toast.makeText(getApplicationContext(), "再按一次退出程序",
+                Toast.makeText(getApplicationContext(), "try again to exit",
                         Toast.LENGTH_SHORT).show();
                 exitTime = System.currentTimeMillis();
             } else {
@@ -75,6 +68,5 @@ public class News extends AppCompatActivity {
 
         }
     }
-
 
 }

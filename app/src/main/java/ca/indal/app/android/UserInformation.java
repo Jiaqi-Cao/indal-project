@@ -1,43 +1,64 @@
+/*
+ * @author Yang Shu, Jessie Wang
+ * @Version 0.1 by Yang
+ * create the connection between the activity
+ * @Version 0.2 by Jessie
+ * getting the information from the firebase
+ * Version 0.3 by Yang
+ * setup the user information and display on the activity and new method for future
+ * @time: 3.16
+ */
 package ca.indal.app.android;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import ca.indal.app.android.model.User;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-public class MainActivity extends AppCompatActivity {
 
-    private Button  btnAddDropCourse, remove, signOut, courseTree, btnAcademicRecord,
-            importantDate, weeklySchedule ,userInfo, btnNews;
+public class UserInformation extends AppCompatActivity {
 
+    private TextView name;
+    private TextView email;
+    private TextView b_num;
+    private TextView uid;
+    private Button updata, changeEmail, changePassword, sendEmail, btnChangeEmail, btnChangePassword, btnSendResetEmail, btnFeedback;
     private EditText oldEmail, newEmail, password, newPassword;
-    private ProgressBar progressBar;
+
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
 
+
+    private Intent intent;
+
+    private ProgressBar progressBar;
+
+    /*
+     * main activity read the all user information and display on the UI
+     * @return Nothings
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_user_info);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(getString(R.string.app_name));
-        setSupportActionBar(toolbar);
-
-        //get firebase auth instance
         auth = FirebaseAuth.getInstance();
 
-        //get current user
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         authListener = new FirebaseAuth.AuthStateListener() {
@@ -47,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 if (user == null) {
                     // user auth state is changed - user is null
                     // launch login activity
-                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    startActivity(new Intent(UserInformation.this, LoginActivity.class));
                     finish();
                 }
                 else{
@@ -56,23 +77,22 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        /*btnChangeEmail = (Button) findViewById(R.id.change_email_button);
-        btnChangePassword = (Button) findViewById(R.id.change_password_button);
-        btnSendResetEmail = (Button) findViewById(R.id.sending_pass_reset_button);*/
-        //btnRemoveUser = (Button) findViewById(R.id.remove_user_button);
-        btnAddDropCourse = (Button) findViewById(R.id.add_drop_course);
-        btnAcademicRecord = (Button) findViewById(R.id.AcademicRecord);
-        /*changeEmail = (Button) findViewById(R.id.changeEmail);
+        name = findViewById(R.id.name);
+        email = findViewById(R.id.email);
+        b_num = findViewById(R.id.bn);
+        uid = findViewById(R.id.uid);
+        updata = findViewById(R.id.updateInfo);
+        changeEmail = (Button) findViewById(R.id.changeEmail);
         changePassword = (Button) findViewById(R.id.changePass);
-        sendEmail = (Button) findViewById(R.id.send);*/
-        remove = (Button) findViewById(R.id.remove);
-        signOut = (Button) findViewById(R.id.sign_out);
-        courseTree = (Button) findViewById(R.id.courseTree);
+        sendEmail = (Button) findViewById(R.id.send);
+        btnChangeEmail = (Button) findViewById(R.id.change_email_button);
+        btnChangePassword = (Button) findViewById(R.id.change_password_button);
+        btnSendResetEmail = (Button) findViewById(R.id.sending_pass_reset_button);
+        btnFeedback = (Button) findViewById(R.id.feedback_button);
 
-        importantDate = (Button) findViewById(R.id.important_button);
-        weeklySchedule = (Button) findViewById(R.id.weekly_button);
-        userInfo = (Button)findViewById(R.id.userInfo);
-        btnNews = (Button) findViewById(R.id.news);
+        changeEmail.setVisibility(View.GONE);
+        changePassword.setVisibility(View.GONE);
+        sendEmail.setVisibility(View.GONE);
 
         oldEmail = (EditText) findViewById(R.id.old_email);
         newEmail = (EditText) findViewById(R.id.new_email);
@@ -83,10 +103,6 @@ public class MainActivity extends AppCompatActivity {
         newEmail.setVisibility(View.GONE);
         password.setVisibility(View.GONE);
         newPassword.setVisibility(View.GONE);
-        /*changeEmail.setVisibility(View.GONE);
-        changePassword.setVisibility(View.GONE);
-        sendEmail.setVisibility(View.GONE);*/
-        remove.setVisibility(View.GONE);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -94,10 +110,52 @@ public class MainActivity extends AppCompatActivity {
             progressBar.setVisibility(View.GONE);
         }
 
-        courseTree.setOnClickListener(new View.OnClickListener() {
+
+        auth = FirebaseAuth.getInstance();
+
+        intent = getIntent();
+
+        final FirebaseUser curr_user = FirebaseAuth.getInstance().getCurrentUser();
+        if(curr_user != null) {
+            email.setText(curr_user.getEmail());
+            uid.setText(curr_user.getUid());
+        }else{//if Firebase return has error
+            name.setText("Can't get user name");
+            email.setText("Can't get user email");
+            b_num.setText("Can't find user B-number");
+            uid.setText("No information");
+        }
+
+        updata.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, CourseTreeActivity.class));
+
+            }
+        });
+
+        btnChangeEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                oldEmail.setVisibility(View.GONE);
+                newEmail.setVisibility(View.VISIBLE);
+                password.setVisibility(View.GONE);
+                newPassword.setVisibility(View.GONE);
+                changeEmail.setVisibility(View.VISIBLE);
+                changePassword.setVisibility(View.GONE);
+                sendEmail.setVisibility(View.GONE);
+            }
+        });
+
+        btnChangeEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                oldEmail.setVisibility(View.GONE);
+                newEmail.setVisibility(View.VISIBLE);
+                password.setVisibility(View.GONE);
+                newPassword.setVisibility(View.GONE);
+                changeEmail.setVisibility(View.VISIBLE);
+                changePassword.setVisibility(View.GONE);
+                sendEmail.setVisibility(View.GONE);
             }
         });
 
@@ -115,21 +173,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });*/
 
-        /*changeEmail.setOnClickListener(new View.OnClickListener() {
+        changeEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-                if (user != null && !newEmail.getText().toString().trim().equals("")) {
+                if (auth != null && !newEmail.getText().toString().trim().equals("")) {
                     user.updateEmail(newEmail.getText().toString().trim())
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(MainActivity.this, "Email address is updated. Please sign in with new email id!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(UserInformation.this, "Email address is updated. Please sign in with new email id!", Toast.LENGTH_LONG).show();
                                         signOut();
                                         progressBar.setVisibility(View.GONE);
                                     } else {
-                                        Toast.makeText(MainActivity.this, "Failed to update email!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(UserInformation.this, "Failed to update email!", Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
                                     }
                                 }
@@ -151,7 +209,6 @@ public class MainActivity extends AppCompatActivity {
                 changeEmail.setVisibility(View.GONE);
                 changePassword.setVisibility(View.VISIBLE);
                 sendEmail.setVisibility(View.GONE);
-                remove.setVisibility(View.GONE);
             }
         });
 
@@ -159,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-                if (user != null && !newPassword.getText().toString().trim().equals("")) {
+                if (auth != null && !newPassword.getText().toString().trim().equals("")) {
                     if (newPassword.getText().toString().trim().length() < 6) {
                         newPassword.setError("Password too short, enter minimum 6 characters");
                         progressBar.setVisibility(View.GONE);
@@ -169,11 +226,11 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
-                                            Toast.makeText(MainActivity.this, "Password is updated, sign in with new password!", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(UserInformation.this, "Password is updated, sign in with new password!", Toast.LENGTH_SHORT).show();
                                             signOut();
                                             progressBar.setVisibility(View.GONE);
                                         } else {
-                                            Toast.makeText(MainActivity.this, "Failed to update password!", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(UserInformation.this, "Failed to update password!", Toast.LENGTH_SHORT).show();
                                             progressBar.setVisibility(View.GONE);
                                         }
                                     }
@@ -196,7 +253,6 @@ public class MainActivity extends AppCompatActivity {
                 changeEmail.setVisibility(View.GONE);
                 changePassword.setVisibility(View.GONE);
                 sendEmail.setVisibility(View.VISIBLE);
-                remove.setVisibility(View.GONE);
             }
         });
 
@@ -210,10 +266,10 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(MainActivity.this, "Reset password email is sent!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(UserInformation.this, "Reset password email is sent!", Toast.LENGTH_SHORT).show();
                                         progressBar.setVisibility(View.GONE);
                                     } else {
-                                        Toast.makeText(MainActivity.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(UserInformation.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
                                         progressBar.setVisibility(View.GONE);
                                     }
                                 }
@@ -223,96 +279,16 @@ public class MainActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                 }
             }
-        });*/
-
-        btnAddDropCourse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, AddCourseActivity.class));
-            }
         });
 
-        btnAcademicRecord.setOnClickListener(new View.OnClickListener() {
+        btnFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, AcademicRecord.class));
-            }
-        });
 
-        /*btnRemoveUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
-                if (user != null) {
-                    user.delete()
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(MainActivity.this, "Your profile is deleted:( Create a account now!", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(MainActivity.this, SignupActivity.class));
-                                        finish();
-                                        progressBar.setVisibility(View.GONE);
-                                    } else {
-                                        Toast.makeText(MainActivity.this, "Failed to delete your account!", Toast.LENGTH_SHORT).show();
-                                        progressBar.setVisibility(View.GONE);
-                                    }
-                                }
-                            });
-                }
-            }
-        });*/
-
-        /*
-         * @author Yang Shu, Jessie Wang
-         *Activity set up for display user information
-         */
-        //user information display
-        userInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,UserInformation.class);
-                intent.putExtra("User",user);
-                startActivity(intent);
+                startActivity(new Intent(UserInformation.this, Feedback.class));
 
             }
         });
-
-
-        importantDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                startActivity(new Intent(MainActivity.this, ImportantDatesActivity.class));
-
-            }
-        });
-
-
-        weeklySchedule.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                startActivity(new Intent(MainActivity.this, WeeklyScheduleActivity.class));
-            }
-        });
-
-        btnNews.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                startActivity(new Intent(MainActivity.this, NewsActivity.class));
-            }
-        });
-
-
-        signOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signOut();
-            }
-        });
-
     }
 
     //sign out method
@@ -320,23 +296,21 @@ public class MainActivity extends AppCompatActivity {
         auth.signOut();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        progressBar.setVisibility(View.GONE);
-    }
+    /*
+     * This method is used for future
+     * @return Nothing
+     */
+    private void updateContact(){
+        auth = FirebaseAuth.getInstance();
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        auth.addAuthStateListener(authListener);
-    }
+        intent = getIntent();
+        FirebaseUser curr_user = FirebaseAuth.getInstance().getCurrentUser();
+        if(curr_user != null){
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (authListener != null) {
-            auth.removeAuthStateListener(authListener);
+        }else{
         }
+
+        finish();
     }
+
 }
