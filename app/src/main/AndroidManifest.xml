@@ -42,29 +42,32 @@
         </activity>
 
         <activity
-            android:name=".add_drop_course.add_drop_course_MainActivity"
-            android:parentActivityName=".add_drop_course.add_drop_course_MainActivity" />
-
-        <activity
-            android:name=".add_drop_course.CourseDetail"
-            android:parentActivityName=".add_drop_course.CourseDetail" />
-
-        <activity
-            android:name=".add_drop_course.DropMain"
-            android:parentActivityName=".add_drop_course.DropMain" />
-
-        <activity
-            android:name=".add_drop_course.DropDetail"
-            android:parentActivityName=".add_drop_course.DropDetail" />
+            android:name=".AcademicRecord"
+            android:parentActivityName=".AcademicRecord" />
 
         <activity
             android:name=".AddCourseActivity"
             android:parentActivityName=".AddCourseActivity" />
 
         <activity
+            android:name=".ImportantDatesActivity"
+            android:parentActivityName=".ImportantDatesActivity" />
+
+        <activity
+            android:name=".WeeklyScheduleActivity"
+            android:parentActivityName=".WeeklyScheduleActivity" />
+
+        <activity
             android:name=".UserInformation"
             android:parentActivityName=".UserInformation" />
 
+        <activity
+            android:name=".NewsActivity"
+            android:parentActivityName=".NewsActivity" />
+
+        <activity
+            android:name=".Feedback"
+            android:parentActivityName=".Feedback" />
 
 
         <service android:name=".MyFirebaseMessagingService">

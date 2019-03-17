@@ -21,7 +21,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
-public class UserinfoTest {
+public class UserInformationTest {
     private FirebaseUser current_uesr;
     private FirebaseAuth auth;
 
