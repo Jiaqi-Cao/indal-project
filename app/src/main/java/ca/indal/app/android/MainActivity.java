@@ -1,9 +1,5 @@
 package ca.indal.app.android;
 
-import android.os.StrictMode;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,12 +17,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-import ca.indal.app.android.model.User;
-
 public class MainActivity extends AppCompatActivity {
 
     private Button btnChangeEmail, btnChangePassword, btnSendResetEmail, btnRemoveUser, btnAddDropCourse,
-            changeEmail, changePassword, sendEmail, remove, signOut, courseTree, importantDate;
+            changeEmail, changePassword, sendEmail, remove, signOut, courseTree, importantDate, weeklySchedule;
 
     private EditText oldEmail, newEmail, password, newPassword;
     private ProgressBar progressBar;
@@ -77,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         courseTree = (Button) findViewById(R.id.courseTree);
 
         importantDate = (Button) findViewById(R.id.important_button);
+        weeklySchedule = (Button) findViewById(R.id.weekly_button);
 
         oldEmail = (EditText) findViewById(R.id.old_email);
         newEmail = (EditText) findViewById(R.id.new_email);
@@ -266,6 +261,14 @@ public class MainActivity extends AppCompatActivity {
 
                 startActivity(new Intent(MainActivity.this, ImportantDatesActivity.class));
 
+            }
+        });
+
+        weeklySchedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(MainActivity.this, WeeklyScheduleActivity.class));
             }
         });
 

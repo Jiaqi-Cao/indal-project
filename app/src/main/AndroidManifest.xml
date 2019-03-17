@@ -65,6 +65,10 @@
             android:name=".ImportantDatesActivity"
             android:parentActivityName=".ImportantDatesActivity" />
 
+        <activity
+            android:name=".WeeklyScheduleActivity"
+            android:parentActivityName=".WeeklyScheduleActivity" />
+
 
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>

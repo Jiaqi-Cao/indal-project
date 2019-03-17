@@ -187,7 +187,6 @@ public class AddCourseActivity extends AppCompatActivity {
                 return null;
             }
         }.execute("http://app.indal.ca/wp-content/tables/available-term.csv");
-
     }
 
     /*
