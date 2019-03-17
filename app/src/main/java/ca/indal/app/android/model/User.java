@@ -1,12 +1,15 @@
 package ca.indal.app.android.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class User implements Serializable {
 
     public String email;
     public String UID;
     public String role;
+    public List<String> terms = new ArrayList<>();
 
     public User()
     {
@@ -17,26 +20,17 @@ public class User implements Serializable {
     {
         this.email = email;
         this.UID = UID;
-        this.role=role;
-    }
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    public void setUID(String UID) {
-        this.UID = UID;
-    }
-    public void setRole(String role) {
         this.role = role;
     }
-    public String getEmail(){
-        return email;
+
+    public void setTerms(List<String> terms){
+        this.terms = terms;
     }
-    public String getUID(){
-        return UID;
+
+    public List<String> getTerms(){
+        return terms;
     }
-    public String getRole(){
-        return role;
-    }
+
 
     @Override
     public String toString()
