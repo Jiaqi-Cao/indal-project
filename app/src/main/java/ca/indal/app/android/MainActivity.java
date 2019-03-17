@@ -1,5 +1,14 @@
+/*
+ * @author Jinkun Chen
+ * @version 1
+ * @author Jiaqi Cao
+ * @version 2
+ * @author Sherry Kuang
+ * @version 3
+ * */
 package ca.indal.app.android;
 
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -20,13 +29,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-import ca.indal.app.android.add_drop_course.add_drop_course_MainActivity;
 import ca.indal.app.android.model.User;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button btnChangeEmail, btnChangePassword, btnSendResetEmail, btnRemoveUser, btnAddDropCourse,
             changeEmail, changePassword, sendEmail, remove, signOut, courseTree;
+
+    //Jiaqi Cao & Sherry Kuang
+    private Button history;
 
     private EditText oldEmail, newEmail, password, newPassword;
     private ProgressBar progressBar;
@@ -75,6 +86,9 @@ public class MainActivity extends AppCompatActivity {
         remove = (Button) findViewById(R.id.remove);
         signOut = (Button) findViewById(R.id.sign_out);
         courseTree = (Button) findViewById(R.id.courseTree);
+
+        //Jiaqi Cao & Sherry Kuang
+        history = (Button) findViewById(R.id.history);
 
         oldEmail = (EditText) findViewById(R.id.old_email);
         newEmail = (EditText) findViewById(R.id.new_email);
@@ -230,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
         btnAddDropCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, add_drop_course_MainActivity.class));
+                startActivity(new Intent(MainActivity.this, AddCourseActivity.class));
             }
         });
 
@@ -255,6 +269,17 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                 }
+            }
+        });
+
+        //Jiaqi Cao & Sherry Kuang
+        /*
+         *this method will monitor the academic record button then jump to the academic record page
+         */
+        history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, course_history.class));
             }
         });
 
