@@ -24,13 +24,13 @@ public class ImportantDatesActivityTest {
      * The test check the web that is exist or not
      */
 
-   @Test
-   public void validurl() throws IOException {
-       String validurl = "http://news.app.indal.ca/important-dates/";
-       URL url = new URL(validurl);
-       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-       int status = connection.getResponseCode();
-       assertEquals(200, status);
-   }
+    @Test
+    public void validurl() throws IOException {
+        String validurl = "http://news.app.indal.ca/important-dates/";
+        URL url = new URL(validurl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        int status = connection.getResponseCode();
+        assertEquals(200, status);
+    }
 
 }

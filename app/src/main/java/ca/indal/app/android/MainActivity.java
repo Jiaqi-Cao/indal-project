@@ -1,26 +1,24 @@
 package ca.indal.app.android;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnChangeEmail, btnChangePassword, btnSendResetEmail, btnRemoveUser, btnAddDropCourse,
-            changeEmail, changePassword, sendEmail, remove, signOut, courseTree, importantDate, weeklySchedule;
+    private Button  btnAddDropCourse, remove, signOut, courseTree, btnAcademicRecord,
+            importantDate, weeklySchedule ,userInfo, btnNews;
 
     private EditText oldEmail, newEmail, password, newPassword;
     private ProgressBar progressBar;
@@ -58,20 +56,23 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        btnChangeEmail = (Button) findViewById(R.id.change_email_button);
+        /*btnChangeEmail = (Button) findViewById(R.id.change_email_button);
         btnChangePassword = (Button) findViewById(R.id.change_password_button);
-        btnSendResetEmail = (Button) findViewById(R.id.sending_pass_reset_button);
-        btnRemoveUser = (Button) findViewById(R.id.remove_user_button);
+        btnSendResetEmail = (Button) findViewById(R.id.sending_pass_reset_button);*/
+        //btnRemoveUser = (Button) findViewById(R.id.remove_user_button);
         btnAddDropCourse = (Button) findViewById(R.id.add_drop_course);
-        changeEmail = (Button) findViewById(R.id.changeEmail);
+        btnAcademicRecord = (Button) findViewById(R.id.AcademicRecord);
+        /*changeEmail = (Button) findViewById(R.id.changeEmail);
         changePassword = (Button) findViewById(R.id.changePass);
-        sendEmail = (Button) findViewById(R.id.send);
+        sendEmail = (Button) findViewById(R.id.send);*/
         remove = (Button) findViewById(R.id.remove);
         signOut = (Button) findViewById(R.id.sign_out);
         courseTree = (Button) findViewById(R.id.courseTree);
 
         importantDate = (Button) findViewById(R.id.important_button);
         weeklySchedule = (Button) findViewById(R.id.weekly_button);
+        userInfo = (Button)findViewById(R.id.userInfo);
+        btnNews = (Button) findViewById(R.id.news);
 
         oldEmail = (EditText) findViewById(R.id.old_email);
         newEmail = (EditText) findViewById(R.id.new_email);
@@ -82,9 +83,9 @@ public class MainActivity extends AppCompatActivity {
         newEmail.setVisibility(View.GONE);
         password.setVisibility(View.GONE);
         newPassword.setVisibility(View.GONE);
-        changeEmail.setVisibility(View.GONE);
+        /*changeEmail.setVisibility(View.GONE);
         changePassword.setVisibility(View.GONE);
-        sendEmail.setVisibility(View.GONE);
+        sendEmail.setVisibility(View.GONE);*/
         remove.setVisibility(View.GONE);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnChangeEmail.setOnClickListener(new View.OnClickListener() {
+        /*btnChangeEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 oldEmail.setVisibility(View.GONE);
@@ -112,9 +113,9 @@ public class MainActivity extends AppCompatActivity {
                 sendEmail.setVisibility(View.GONE);
                 remove.setVisibility(View.GONE);
             }
-        });
+        });*/
 
-        changeEmail.setOnClickListener(new View.OnClickListener() {
+        /*changeEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
@@ -222,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                 }
             }
-        });
+        });*/
 
         btnAddDropCourse.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -231,7 +232,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnRemoveUser.setOnClickListener(new View.OnClickListener() {
+        btnAcademicRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, AcademicRecord.class));
+            }
+        });
+
+        /*btnRemoveUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
@@ -253,7 +261,23 @@ public class MainActivity extends AppCompatActivity {
                             });
                 }
             }
+        });*/
+
+        /*
+         * @author Yang Shu, Jessie Wang
+         *Activity set up for display user information
+         */
+        //user information display
+        userInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,UserInformation.class);
+                intent.putExtra("User",user);
+                startActivity(intent);
+
+            }
         });
+
 
         importantDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -264,6 +288,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         weeklySchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -271,6 +296,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, WeeklyScheduleActivity.class));
             }
         });
+
+        btnNews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(MainActivity.this, NewsActivity.class));
+            }
+        });
+
 
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override

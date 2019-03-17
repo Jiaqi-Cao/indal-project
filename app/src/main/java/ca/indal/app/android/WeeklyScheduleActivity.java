@@ -39,6 +39,7 @@ public class WeeklyScheduleActivity extends AppCompatActivity {
     int choose_term_index = 0;
     private FirebaseAuth auth;
     private FirebaseFirestore database;
+    private FirebaseAuth.AuthStateListener authListener;
 
     private WebView webview4;
     private long exitTime = 0;
@@ -154,7 +155,7 @@ public class WeeklyScheduleActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                            //Toast.makeText(WeeklyScheduleActivity.this, items[which] + "'s Weekly Schedule", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(WeeklyScheduleActivity.this, items[which] + "'s Weekly Schedule", Toast.LENGTH_SHORT).show();
 
                         webview4 = findViewById(R.id.webview4);
                         webview4.setWebViewClient(new WebViewClient() {
@@ -181,4 +182,3 @@ public class WeeklyScheduleActivity extends AppCompatActivity {
         dialog.show();
     }
 }
-
