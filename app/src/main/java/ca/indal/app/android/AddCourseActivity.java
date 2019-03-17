@@ -8,6 +8,7 @@ package ca.indal.app.android;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,8 +19,13 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONException;
@@ -33,11 +39,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import ca.indal.app.android.model.Course;
 import ca.indal.app.android.model.CourseSpot;
+import ca.indal.app.android.model.SelectedIndex;
+import ca.indal.app.android.model.User;
 import ca.indal.app.android.model.User_CourseSpot;
 
 
@@ -57,6 +67,7 @@ public class AddCourseActivity extends AppCompatActivity {
     private Course course;
     private CourseSpot courseSpot;
     int choose_term_index = 0;
+    String currentNumStudent = "";
 
     private String wholeJsonData = "";
     private ArrayList<String> emailhahaha = new ArrayList<String>();
@@ -195,8 +206,6 @@ public class AddCourseActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         final String authUid = auth.getUid();
         database = FirebaseFirestore.getInstance();
-        //int choose = -1;
-        //course = (Course) intent.getSerializableExtra("Course");
 
         final String items[] = (String[])terms.toArray(new String[terms.size()]);;
         AlertDialog dialog = new AlertDialog.Builder(this)
@@ -204,8 +213,6 @@ public class AddCourseActivity extends AppCompatActivity {
                 .setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //Toast.makeText(AddCourseActivity.this, items[which], Toast.LENGTH_SHORT).show();
-                        //Toast.makeText(AddCourseActivity.this, items[which], Toast.LENGTH_SHORT).show();
                         choose_term_index = which;
                         Toast.makeText(AddCourseActivity.this, items[which], Toast.LENGTH_SHORT).show();
                     }
@@ -221,16 +228,9 @@ public class AddCourseActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         //Course c = new Course();
                         if(!CourseID.equals("")){
-                            //Course c = new Course(value,IDs.get(choose_term_index));
-                            //readCourseInfoCSV(terms.get(choose_term_index));
-                            DocumentReference ref = database.collection("User/"+authUid+"/"+IDs.get(choose_term_index)).document(CourseID);
-                            DocumentReference ref2 = database.collection("CourseSpot/").document(CourseID);
-                            ref.set(course);
-                            ref2.set(courseSpot);
-                            DocumentReference ref3 = database.collection("CourseSpot/"+CourseID+"/"+IDs.get(choose_term_index)).document(authUid);
-                            ref3.set(new User_CourseSpot(auth.getUid()));
-
-                            Toast.makeText(AddCourseActivity.this, "Successful", Toast.LENGTH_SHORT).show();
+                            /*DocumentReference ref = database.collection("User/"+authUid+"/"+IDs.get(choose_term_index)).document(CourseID);
+                            ref.set(course);*/
+                            addCourse();
                         }
                         dialog.dismiss();
                     }
@@ -277,24 +277,244 @@ public class AddCourseActivity extends AppCompatActivity {
         }.execute("http://app.indal.ca/wp-content/tables/"+CourseID+".csv");
     }
 
-    /*public void jsonFilter(String jsonData){
-        try {
-            JSONObject jsonObject = new JSONObject(jsonData);
-            Iterator keys = jsonObject.keys();
-            Log.i("<--- Json -->", jsonObject.getString("createTime"));
-            //通过迭代器获得json当中所有的key值
-            //然后通过循环遍历出的key值
-            while (keys.hasNext()){
-                String key = String.valueOf(keys.next());
-                //Log.i("!!!!!!->json：", "" + key);
-                //通过通过刚刚得到的key值去解析后面的json了
+    /*
+     * This method is used to renew the course spots for a specific course at a specific term
+     * @return Nothing.
+     * @exception IOException On input error.
+     * @see IOException
+     * @time 2019-3-15
+     * */
+    public void renewCourseSpot() {
+        new AsyncTask<String, Void, Void>() {
+            @Override
+            protected Void doInBackground(String... strings) {
+                try {
+                    URL url = new URL(strings[0]);
+                    URLConnection connection = url.openConnection();//获取互联网连接
+                    InputStream is = connection.getInputStream();//获取输入流
+                    InputStreamReader isr = new InputStreamReader(is, "utf-8");//字节转字符，字符集是utf-8
+                    BufferedReader bufferedReader = new BufferedReader(isr);//通过BufferedReader可以读取一行字符串
+                    String jsonData = "";
+                    //String jsonDoc ="";
+                    String line;
+                    //bufferedReader.readLine();
+                    while ((line = bufferedReader.readLine()) != null) {
+                        Log.i("Output：", "" + line);
+                        jsonData = jsonData + line;
+                    }
+                    Log.i("json：", "" + jsonData);
+                    bufferedReader.close();
+
+                    final String jsonDataFinal = jsonData;
+
+                    DocumentReference ref2 = database.collection("CourseSpots/").document(CourseID);
+                    ref2.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document.exists()) {
+                                    Log.d("LOGGER", "There is such document！！！");
+                                    currentNumStudent = document.getString(IDs.get(choose_term_index));
+
+                                    // Read Current Student Number
+                                    try {
+                                        DocumentReference ref2 = database.collection("CourseSpots/").document(CourseID);
+                                        JSONObject jsonObject1 = new JSONObject(jsonDataFinal);
+                                        String num = jsonObject1.getString(IDs.get(choose_term_index));
+                                        Log.i("<--- reNew -->", num);
+                                        currentNumStudent = Integer.parseInt(num)+1+"";
+                                        ref2.update(IDs.get(choose_term_index),currentNumStudent);
+                                    }
+                                    catch (JSONException e) {
+                                        Log.i("json：", "???" );
+                                        e.printStackTrace();
+                                    }
+
+                                } else {
+                                    Log.d("LOGGER", "No such document！！！");
+                                    DocumentReference ref2 = database.collection("CourseSpots/").document(CourseID);
+                                    Map<String, Object> termStudentNum = new HashMap<>();
+                                    termStudentNum.put(IDs.get(choose_term_index), "1");
+                                    currentNumStudent = "0";
+                                    ref2.set(termStudentNum);
+                                }
+                            } else {
+                                Log.d("LOGGER", "get failed with ", task.getException());
+                            }
+                        }
+                    });
+
+                    /*currentNumStudent = Integer.parseInt(num)+1+"";
+                    ref2.update(IDs.get(choose_term_index),currentNumStudent);*/
+
+                    isr.close();
+                    is.close();
+
+
+                    //jsonFilter(jsonData);
+                    /*try {
+
+
+                    }
+                    catch (JSONException e) {
+                        Log.i("json：", "???" );
+                        e.printStackTrace();
+                    }
+                    isr.close();
+                    is.close();*/
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
             }
-        }
-        catch (JSONException e) {
-            //Log.i("json：", "???" );
-            e.printStackTrace();
-        }
-        //return
-    }*/
+        }.execute("https://us-central1-universityapp-10e74.cloudfunctions.net/numStudents?course="+CourseID);
+
+    }
+
+    /*
+     * This method is used to add courses to the student's academic record
+     * @return Nothing.
+     * @exception IOException On input error.
+     * @see IOException
+     * @time 2019-3-15
+     * */
+
+    public void addCourse(){
+
+        auth = FirebaseAuth.getInstance();
+        final String authUid = auth.getUid();
+        database = FirebaseFirestore.getInstance();
+
+        new AsyncTask<String, Void, Void>() {
+            @Override
+            protected Void doInBackground(String... strings) {
+                try {
+                    URL url = new URL(strings[0]);
+                    URLConnection connection = url.openConnection();//获取互联网连接
+                    InputStream is = connection.getInputStream();//获取输入流
+                    InputStreamReader isr = new InputStreamReader(is, "utf-8");//字节转字符，字符集是utf-8
+                    BufferedReader bufferedReader = new BufferedReader(isr);//通过BufferedReader可以读取一行字符串
+                    String jsonData = "";
+                    //String jsonDoc ="";
+                    String line;
+                    //bufferedReader.readLine();
+                    while ((line = bufferedReader.readLine()) != null) {
+                        Log.i("Output：", "" + line);
+                        jsonData = jsonData + line;
+                    }
+                    Log.i("json：", "" + jsonData);
+                    bufferedReader.close();
+                    //jsonFilter(jsonData);
+                    try {
+                        JSONObject jsonObject1 = new JSONObject(jsonData);
+                        String stateus = jsonObject1.getString("status");
+                        final String illustrate = jsonObject1.getString("illustrate");
+                        Log.i("<--- stateus -->", stateus);
+                        Log.i("<--- illustrate -->", illustrate);
+
+                        if(stateus.equals("OK")){
+                            DocumentReference ref = database.collection("User/"+authUid+"/"+IDs.get(choose_term_index)).document(CourseID);
+                            ref.set(course);
+                            renewCourseSpot();
+                            //Add new term index
+                            final DocumentReference userInstance = database.collection("User/").document(authUid);
+                            userInstance.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        //String array = document.toString();
+                                        if (document.exists()) {
+                                            Log.d("LOGGER", "DocumentSnapshot data: " + document.getData());
+                                            User thisUser = document.toObject(User.class);
+                                            List<String> terms = thisUser.getTerms();
+                                            if (terms.indexOf(IDs.get(choose_term_index)) < 0){
+                                                terms.add(IDs.get(choose_term_index));
+                                                thisUser.setTerms(terms);
+                                            }
+                                            Log.d("renew terms", terms.toString());
+                                            userInstance.update("terms",terms);
+                                        } /*else {
+                                            Log.d("LOGGER", "No such document");
+                                            DocumentReference docRef = database.collection("User/"+authUid+"/"+IDs.get(choose_term_index)).document("index");;
+                                            List<String> newCourse = new ArrayList<>();
+                                            newCourse.add(CourseID);
+                                            SelectedIndex newlist = new SelectedIndex(newCourse);
+                                            //docRef.set("{courses=["+docRef+"]}");
+                                            docRef.set(newlist);
+                                        }*/
+                                    } else {
+                                        Log.d("LOGGER", "get failed with ", task.getException());
+                                    }
+                                }
+                            });
+
+                            //renew array of index
+                            DocumentReference docRef = database.collection("User/"+authUid+"/"+IDs.get(choose_term_index)).document("index");
+                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+
+                                        if (document.exists()) {
+                                            DocumentReference docRef = database.collection("User/"+authUid+"/"+IDs.get(choose_term_index)).document("index");
+                                            Log.d("LOGGER", "DocumentSnapshot data: " + document.getData());
+                                            SelectedIndex newlist = document.toObject(SelectedIndex.class);
+                                            List<String> newCourse = newlist.returnTheArray();
+                                            newCourse.add(CourseID);
+                                            Log.d("newCourses", newCourse.toString());
+                                            docRef.update("courses",newCourse);
+                                        } else {
+                                            Log.d("LOGGER", "No such document");
+                                            DocumentReference docRef = database.collection("User/"+authUid+"/"+IDs.get(choose_term_index)).document("index");
+                                            List<String> newCourse = new ArrayList<>();
+                                            newCourse.add(CourseID);
+                                            SelectedIndex newlist = new SelectedIndex(newCourse);
+                                            Log.d("newCourses", newlist.toString());
+                                            docRef.set(newlist);
+                                        }
+                                    } else {
+                                        Log.d("LOGGER", "get failed with ", task.getException());
+                                    }
+                                }
+                            });
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(AddCourseActivity.this, "Successful", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                        else{
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(AddCourseActivity.this, illustrate, Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+
+                    }
+                    catch (JSONException e) {
+                        Log.i("json：", "???" );
+                        e.printStackTrace();
+                    }
+                    isr.close();
+                    is.close();
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        }.execute("http://app.indal.ca/api/selectCheck/?course="+CourseID+"&term="+IDs.get(choose_term_index)+"&uid="+auth.getUid());
+    }
 
 }

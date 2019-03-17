@@ -1,12 +1,15 @@
 package ca.indal.app.android.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class User implements Serializable {
 
     public String email;
     public String UID;
     public String role;
+    public List<String> terms = new ArrayList<>();
 
     public User()
     {
@@ -17,7 +20,15 @@ public class User implements Serializable {
     {
         this.email = email;
         this.UID = UID;
-        this.role=role;
+        this.role = role;
+    }
+
+    public void setTerms(List<String> terms){
+        this.terms = terms;
+    }
+
+    public List<String> getTerms(){
+        return terms;
     }
 
 

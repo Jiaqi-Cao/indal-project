@@ -132,7 +132,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Add or Droup Courses"
+            android:text="Add Courses"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/AcademicRecord"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Academic Record/Drop Course"
             android:textStyle="bold" />
 
         <Button
