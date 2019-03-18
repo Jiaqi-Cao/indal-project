@@ -1,3 +1,8 @@
+/*
+ * @author Tonny Yao, Jinkun Chen
+ * @version 1
+ * */
+
 package ca.indal.app.android;
 
 import android.os.Bundle;

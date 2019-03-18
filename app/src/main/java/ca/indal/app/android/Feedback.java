@@ -1,3 +1,9 @@
+/*
+ * @ author Yang Shu, Jessie Wang
+ * @ version
+ * @ time 3.13
+ * */
+
 package ca.indal.app.android;
 
 import android.support.v7.app.AppCompatActivity;
@@ -5,14 +11,6 @@ import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
-
-/*
- * @ author Jessie Wang
- * @ version 1
- * @ author Yang Shu
- * @ version
- * @ time 3.13
- * */
 
 
 public class Feedback extends AppCompatActivity {

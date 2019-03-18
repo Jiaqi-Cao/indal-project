@@ -1,3 +1,8 @@
+/*
+ * @author Jinkun Chen
+ * @version 1
+ * */
+
 package ca.indal.app.android;
 
 import android.support.v7.app.AppCompatActivity;

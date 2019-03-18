@@ -1,7 +1,4 @@
 /*
- * @author Xuemin Yu, Jinkun Chen
- * @version 1
- * @time:3.16
  * author Xuemin Yu
  * @version 2
  * @time:3.17

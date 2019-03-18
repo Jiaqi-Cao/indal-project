@@ -1,11 +1,6 @@
 /*
- * @author Yang Shu, Jessie Wang
- * @Version 0.1 by Yang
- * create the connection between the activity
- * @Version 0.2 by Jessie
- * getting the information from the firebase
- * Version 0.3 by Yang
- * setup the user information and display on the activity and new method for future
+ * Version 3 by Jessie Wang, Yang Shu
+ * setup the user information and display on the activity and new method for future, create the connection between the activity, getting the information from the firebase
  * @time: 3.16
  */
 package ca.indal.app.android;
