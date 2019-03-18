@@ -1,3 +1,8 @@
+/*
+ * @author Jinkun Chen, Tonny Yao
+ * @version 1
+ * */
+
 package ca.indal.app.android;
 
 import android.content.Intent;
