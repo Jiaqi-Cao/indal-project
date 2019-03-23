@@ -99,7 +99,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Add Course / Professor Info"
+            android:text="Add Course / Course Info"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/prof"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Professor Information"
             android:textStyle="bold" />
 
         <Button

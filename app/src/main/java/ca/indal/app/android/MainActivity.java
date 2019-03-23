@@ -1,6 +1,7 @@
 /*
- * @author Jinkun Chen
- * @version 1
+ * @author Xuemin Yu, Jiaqi Cao
+ * @version 2
+ * @time: 3.22
  * */
 
 package ca.indal.app.android;
@@ -23,7 +24,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 public class MainActivity extends AppCompatActivity {
 
     private Button  btnAddDropCourse, remove, signOut, courseTree, btnAcademicRecord,
-            importantDate, weeklySchedule ,userInfo, btnNews;
+            importantDate, weeklySchedule ,userInfo, btnNews,btnprof;
 
     private EditText oldEmail, newEmail, password, newPassword;
     private ProgressBar progressBar;
@@ -78,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
         weeklySchedule = (Button) findViewById(R.id.weekly_button);
         userInfo = (Button)findViewById(R.id.userInfo);
         btnNews = (Button) findViewById(R.id.news);
+
+
+        btnprof = (Button) findViewById(R.id.prof);
 
         oldEmail = (EditText) findViewById(R.id.old_email);
         newEmail = (EditText) findViewById(R.id.new_email);
@@ -234,6 +238,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, AddCourseActivity.class));
+            }
+        });
+
+        /*
+         *Add the professor information button and connect to the professor information activity
+         */
+        btnprof.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, pro_infoActivity.class));
             }
         });
 

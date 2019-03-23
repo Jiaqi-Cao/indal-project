@@ -1,7 +1,7 @@
 /*
- * @author Xuemin Yu
+ * @author Xuemin Yu, Jiaqi Cao
  * @version 1
- * @time:3.15
+ * @time:3.22
  * */
 
 package ca.indal.app.android;
@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 
 @LargeTest
-public class ImportantDatesActivityTest {
+public class pro_infoActivityTest {
 
     /*
      * The test check the web that is exist or not
@@ -26,7 +26,7 @@ public class ImportantDatesActivityTest {
 
     @Test
     public void validurl() throws IOException {
-        String validurl = "http://news.app.indal.ca/important-dates/";
+        String validurl = "http://prof.app.indal.ca/";
         URL url = new URL(validurl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         int status = connection.getResponseCode();
